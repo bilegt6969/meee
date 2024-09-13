@@ -20,6 +20,7 @@ import {
   Button,
 } from "@nextui-org/react";
 import { GlobeAsiaAustraliaIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -71,7 +72,7 @@ const Navbar = () => {
       <div className="max-w-[110rem] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <a href="../../">
+            <Link href="../../">
               <Image
                 src={navBackground ? LogoKhasuBlack : LogoKhasu}
                 alt="Logo"
@@ -79,7 +80,7 @@ const Navbar = () => {
                 height={50}
                 className="w-[100px] h-auto mx-2"
               />
-            </a>
+            </Link>
           </div>
           <div className="hidden sm:ml-6 sm:hidden lg:flex sm:items-center">
             <Dropdown>
@@ -105,24 +106,24 @@ const Navbar = () => {
             <div
               className={`flex ${navBackground ? "text-black" : "text-white"} items-center space-x-4`}
             >
-              <a
+              <Link
                 href="#"
                 className="hover:text-gray-400 transition px-3 py-2 rounded-md text-sm"
               >
                 Projects
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/about-us"
                 className="hover:text-gray-400 transition whitespace-nowrap px-3 py-2 rounded-md text-sm"
               >
                 Careers
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/About-us"
                 className="hover:text-gray-400 transition px-3 py-2 whitespace-nowrap rounded-md text-sm"
               >
                 About Us
-              </a>
+              </Link>
             </div>
           </div>
           <div className="items-center gap-4 hidden sm:ml-6 sm:hidden lg:flex sm:items-center">
@@ -184,12 +185,12 @@ const Navbar = () => {
         {isOpen && (
           <div className="px-9 pt-[10rem] pb-3 space-y-1">
             <div className="flex items-center" onClick={toggleSubmenu}>
-              <a
+              <Link
                 href="#"
                 className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-3xl"
               >
                 Services
-              </a>
+              </Link>
               <motion.div
                 className="ml-2"
                 initial={{ rotate: 0 }}
@@ -207,62 +208,62 @@ const Navbar = () => {
                 transition={{ duration: 0.3 }}
                 className="pl-6"
               >
-                <a
+                <Link
                   href="/cources/html/html-introduction"
                   className="block px-4 py-2 text-2xl text-white hover:bg-yellow-500 rounded-md"
                 >
                   Mining
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/cources/css/css-syntax"
                   className="block px-4 py-2 text-2xl text-white hover:bg-yellow-500 rounded-md"
                 >
                   Mining
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/cources/javascript/js-introduction"
                   className="block px-4 py-2 text-2xl text-white hover:bg-yellow-500 rounded-md"
                 >
                   Mining
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/cources/python/python-home"
                   className="block px-4 py-2 text-2xl text-white hover:bg-yellow-500 rounded-md"
                 >
                   Mining
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/cources/cpp/cpp-home"
                   className="block px-4 py-2 text-2xl text-white hover:bg-yellow-500 rounded-md"
                 >
                   Mining
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/cources/csharp/csharp-home"
                   className="block px-4 py-2 text-2xl text-white hover:bg-yellow-500 rounded-md"
                 >
                   Mining
-                </a>
+                </Link>
               </motion.div>
             )}
-            <a
+            <Link
               href="./"
               className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-3xl"
             >
               Projects
-            </a>
-            <a
+            </Link>
+            <Link
               href="/about-us"
               className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-3xl"
             >
               Careers
-            </a>
-            <a
+            </Link>
+            <Link
               href="/contact-us"
               className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-3xl"
             >
               About Us
-            </a>
+            </Link>
           </div>
         )}
       </motion.div>

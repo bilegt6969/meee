@@ -1,12 +1,13 @@
 'use client';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, { Swiper as SwiperClass } from 'swiper';
+import { Swiper as SwiperClass } from 'swiper';
 import React, { useRef, useState } from 'react';
 import { Pagination } from 'swiper/modules';
 // import Swiper and modules styles
 import '../../app/globals.css'
 import 'swiper/css';
+import Image from 'next/image';
 import 'swiper/css/pagination';
 import { ChevronRightIcon, ChevronLeftIcon } from '@heroicons/react/24/solid';
 
@@ -107,7 +108,7 @@ const swiperRef = useRef<SwiperClass | null>(null);
         {news.map((item, index) => (
           <SwiperSlide key={index}>
             <div className="bg-white rounded-xl shadow-md overflow-hidden hover:scale-105 hover:rounded-2xl hover:shadow-lg transition-transform duration-300 ease-out">
-              <img
+              <Image
                 src={item.image}
                 alt={item.title}
                 className="h-auto w-full object-cover"
