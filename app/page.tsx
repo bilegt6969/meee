@@ -6,7 +6,7 @@ import News from './Home/News'
 
 const Page = () => {
   return (
-    <div className="mt-[-10rem]">
+    <div className="bg-[#f0f0f0]">
       <VideoPage />
       <HomeCard/>
       <FeaturedProjects/>

@@ -1,151 +1,133 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel CSS
 import "tailwindcss/tailwind.css";
 import { MapPinIcon } from "@heroicons/react/24/solid";
+import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const CarouselComponent = () => {
+const CustomCarousel = () => {
+  const [currentIndex, setCurrentIndex] = useState(0); // Track the current index
+
   const slides = [
     {
       img: "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80",
-      title: "Purpose of the Project",
-      description:
-        "The plant can be built on site as a turnkey delivery in which Valmet takes customer specifications regarding layout into consideration. Alternatively, we can deliver the process equipment to your facility.",
-      company: "Gatsuurt LLC",
-      location: "Umnugovi Province in southern Mongolia.",
+      title: "Central Heating Plant",
+      description: `Shaft 2, the most important underground development facility for the Oyu Tolgoi project, has been successfully completed and handed over. Dayan Contract Mining LLC successfully completed the construction of the Shaft-2, the world's largest and latest underground mine shaft.
+      Once Shaft 2 is fully commissioned, it will be the main access to the Oyu Tolgoi underground mine. The shaft will be used for transporting up to 300 people per cage, the movement of equipment and materials. The headframe, at a height of 96m, houses the 10m diameter, 1284m deep shaft. The entire shaft construction – from sinking through to equipping (roughly 3000 tons of steel) – has taken 3 years 4 months to complete. 
+      Shaft 2 production and service hoists are the largest Koepe (friction) hoists in the world employing approximately 32 kilometers (270 tons) of steel ropes. The entire 24 rope installation process required 25 days by a team of approximately 300 employees. 
+      This achievement is one of the safest, most technically challenging, and efficient rope-ups undertaken anywhere in the world.`,
+      company: "Oyu Tolgoi LLC",
+      location: "Southern Mongolia",
     },
     {
       img: "https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80",
-      title: "Fulfillment",
-      description:
-        "The plant can be built on site as a turnkey delivery in which Valmet takes customer specifications regarding layout into consideration.",
-      company: "Gatsuurt LLC",
-      location: "Umnugovi Province in southern Mongolia.",
+      title: "Another Slide",
+      description: `Shaft 2, the most important underground development facility for the Oyu Tolgoi project, has been successfully completed and handed over.`,
+      company: "Company Name",
+      location: "Location Info",
     },
-    {
-      img: "https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80",
-      title: "Solution based on Technologies",
-      description:
-        "We provide advanced technologies that ensure sustainable and efficient energy delivery tailored to your needs.",
-      company: "Gatsuurt LLC",
-      location: "Umnugovi Province in southern Mongolia.",
-    },
+    // Add more slides if needed
   ];
 
+  const handleSlideChange = (index: React.SetStateAction<number>) => {
+    setCurrentIndex(index); // Update the current index on slide change
+  };
+
   return (
-    <div className="w-full mx-auto px-6 lg:px-0 lg:w-11/12 py-8">
-      <Carousel
-        showArrows={true}
-        infiniteLoop={true}
-        autoPlay={false}
-        showThumbs={true}
-        className="shadow-xl rounded-xl"
-        renderArrowPrev={(onClickHandler, hasPrev, label) =>
-          hasPrev && (
-            <button
-              type="button"
-              onClick={onClickHandler}
-              title={label}
-              style={{ left: 15 }}
-              className="absolute top-[17rem] z-10 p-2 text-white bg-blue-600 rounded-full hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className="h-6 w-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.25 19.25L8 12l7.25-7.25"
+    <div className=" flex flex-col md:flex-row border rounded-2xl ">
+      <div className="w-full">
+        {/* Carousel */}
+        <div className="">
+          <Carousel
+            showArrows={true}
+            infiniteLoop={true}
+            showIndicators={false}
+            autoPlay={false}
+            showThumbs={true}
+            thumbWidth={120}
+            className="shadow-xl rounded-xl"
+            selectedItem={currentIndex}
+            onChange={handleSlideChange}
+            renderThumbs={() =>
+              slides.map((slide, index) => (
+                <Image
+                  key={index}
+                  src={slide.img}
+                  height={100}
+                  width={100}
+                  alt={`Thumbnail ${index}`}
+                  className="h-[110px] object-cover rounded focus:rounded-xl active:rounded focus:ring"
                 />
-              </svg>
-            </button>
-          )
-        }
-        renderArrowNext={(onClickHandler, hasNext, label) =>
-          hasNext && (
-            <button
-              type="button"
-              onClick={onClickHandler}
-              title={label}
-              style={{ right: 15 }}
-              className="absolute top-[17rem] z-10 p-2 text-white bg-blue-600 rounded-full hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className="h-6 w-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8.75 4.75L16 12l-7.25 7.25"
-                />
-              </svg>
-            </button>
-          )
-        }
-      >
-        {slides.map((slide, index) => (
-          <div
-            key={index}
-            className="flex flex-col lg:flex-row items-stretch h-[500px] lg:h-[600px]"
+              ))
+            }
+            renderArrowPrev={(onClickHandler, hasPrev, label) =>
+              hasPrev && (
+                <button
+                  type="button"
+                  onClick={onClickHandler}
+                  title={label}
+                  className={`absolute top-1/2 left-[-20px] md:left-[-30px] pl-8 -pr-8 py-4 transform -translate-y-1/2 rounded-full shadow-lg z-10 ${
+                    currentIndex === 0
+                      ? "bg-white text-blue-700 border-blue-700"
+                      : "bg-blue-800 text-white"
+                  }`}
+                >
+                  <ChevronLeft
+                    className={`h-6 w-6 ${
+                      currentIndex === 0 ? "text-blue-700" : "text-white"
+                    }`}
+                  />
+                </button>
+              )
+            }
+            renderArrowNext={(onClickHandler, hasNext, label) =>
+              hasNext && (
+                <button
+                  type="button"
+                  onClick={onClickHandler}
+                  title={label}
+                  className="absolute top-1/2 right-[-20px] md:right-[-30px] pr-8 -pl-8 py-4 transform -translate-y-1/2 bg-blue-800 rounded-full shadow-lg z-10 flex text-blue-700"
+                >
+                  <ChevronRight className="text-white h-6 w-6" />
+                </button>
+              )
+            }
           >
-            {/* Image Container */}
-            <div className="w-full lg:w-3/5 h-full">
-              <img
-                src={slide.img}
-                alt={slide.title}
-                className="h-full w-full object-cover rounded-3xl"
-              />
-            </div>
-
-            {/* Text Container */}
-            <div className="w-full lg:w-2/5 bg-white p-6 flex flex-col justify-center rounded-r-lg text-left space-y-[1rem]">
-              <div>
-                <h2 className="text-4xl font-bold text-blue-700 mb-2">
-                  {slides[0].company}
-                </h2>
-                <p className="text-gray-600 font-thin flex items-center">
-                  <MapPinIcon className="h-4 w-4 text-blue-500" />{" "}
-                  {slide.location}
-                </p>
+            {slides.map((slide, index) => (
+              <div key={index} className="flex flex-col md:flex-row w-full">
+                <div className="p-6 w-full md:w-3/5">
+                  <Image
+                    key={index}
+                    src={slide.img}
+                    height={100}
+                    width={100}
+                    alt={`Thumbnail of ${slide.title}`}
+                    className="w-full h-auto object-fill rounded-xl"
+                  />
+                </div>
+                <div className="w-full md:w-2/5">
+                  <div className="text-left space-y-4 p-4">
+                    <h2 className="text-2xl md:text-4xl font-extrabold text-blue-800">
+                      {slide.title}
+                    </h2>
+                    <p className="text-gray-600 font-light flex items-center">
+                      <MapPinIcon className="h-5 w-5 text-blue-800 mr-2" />
+                      {slide.location}
+                    </p>
+                    <p className="text-gray-700 text-sm md:text-xl font-light p-4">
+                      {slide.description}
+                    </p>
+                  </div>
+                </div>
               </div>
-
-              <div>
-                <h2 className="text-3xl font-bold text-gray-800 mb-4">
-                  {slides[1].title}
-                </h2>
-                <p className="text-gray-600">{slide.description}</p>
-              </div>
-
-              <div>
-                <h2 className="text-3xl font-bold text-gray-800 mb-4">
-                  {slides[1].title}
-                </h2>
-                <p className="text-gray-600">{slide.description}</p>
-              </div>
-
-              <div>
-                <h2 className="text-3xl font-bold text-gray-800 mb-4">
-                  {slides[1].title}
-                </h2>
-                <p className="text-gray-600">{slide.description}</p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </Carousel>
+            ))}
+          </Carousel>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default CarouselComponent;
+export default CustomCarousel;

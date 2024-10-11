@@ -1,23 +1,23 @@
 import type { Metadata } from "next";
+import { useRouter } from "next/router";
 import localFont from "next/font/local";
 import "./globals.css";
 import {Providers} from "./providers";
 import {NextUIProvider} from "@nextui-org/react";
 import App from '../app/Components/Navbar/App'
 import Footer from '../app/Components/Footer'
+import Head from "next/head";
+import { League_Spartan } from 'next/font/google';
 
 
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+const leagueSpartan = League_Spartan({
+  subsets: ['latin'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  display: 'swap', // Ensures the font swaps quickly to avoid invisible text
+  variable: '--font-league-spartan', // Optional: Custom CSS variable for the font
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+
 
 export const metadata: Metadata = {
   title: "ХАСУ ДАЯН",
@@ -30,16 +30,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en"  className={leagueSpartan.className}>
   <link rel="icon" href="/LogoKhasu.png" sizes="any" />
-      <head>
-        
-      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable}`}
-      >
+        className=""
+      >      <App/>
+
                 <NextUIProvider>
-                <App/>
 
                 {children}
                 <Footer/>
