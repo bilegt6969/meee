@@ -23,6 +23,8 @@ function VideoPage() {
           ref={videoRef}
           autoPlay
           loop
+          preload='auto'
+          playsInline
           muted={mute}
           className="object-cover h-screen w-full"
         >
@@ -41,7 +43,7 @@ function VideoPage() {
         </button>
 
         {/* Content Overlay */}
-        <div className="absolute -bottom-2 -right-2 w-[95%] md:w-2/3 lg:w-3/6 xl:w-1/3 h-fit custom-gradient p-6 text-white border-[#F0F0F0] border-[0.5rem] rounded-3xl">
+        <div className="absolute -bottom-2 -right-2 w-[99%] md:w-2/3 lg:w-3/6 xl:w-1/3 h-fit custom-gradient p-6 text-white border-[#F0F0F0] border-[0.5rem] rounded-3xl">
           {/* Mute Button Positioned Relatively to the Card */}
           <button
             onClick={handleMuteToggle}

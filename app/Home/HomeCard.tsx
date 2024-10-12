@@ -143,7 +143,7 @@ function HomeCard() {
           </div>
         </div>
 
-        <div className="lg:w-1/3 w-full px-2 sm:px-6 md:px-12 lg:px-0 flex flex-col justify-center space-y-4 pr-24">
+        <div className="lg:w-1/3 w-full px-2 sm:px-6 md:px-12 lg:px-0 flex flex-col justify-center space-y-4 md:pr-24">
           <p className="text-base sm:text-lg md:text-xl text-left">
             We will provide international standard energy operation, steel
             fabrication, and mining construction support services through a

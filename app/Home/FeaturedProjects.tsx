@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ArrowRightIcon } from "@heroicons/react/24/solid";
 import { ChevronRight } from "lucide-react";
 import { FileShapedNews } from "./data";
+import "./style.css";
 
 const TabComponent = () => {
   const [activeTab, setActiveTab] = useState("service");
@@ -19,50 +20,57 @@ const TabComponent = () => {
       <div className="w-full justify-between">
         {/* Tab Header */}
         <div className="flex flex-row items-end">
-          <button
-            onClick={() => setActiveTab("service")}
-            className={`px-6 py-6 text-2xl font-extrabold rounded-t-xl transition-colors duration-300 bg-white text-blue-700`}
-            style={{
-              borderBottomRightRadius: activeTab === "service" ? "0" : "1rem",
-            }}
-          >
-            SERVICE
-          </button>
-          <button
-            onClick={() => setActiveTab("projects")}
-            className={`px-6 py-6 text-2xl font-extrabold rounded-t-xl transition-colors duration-300 bg-[#5778cd] text-white`}
-            style={{
-              borderBottomLeftRadius: activeTab === "projects" ? "0" : "1rem",
-            }}
-          >
-            FEATURED PROJECTS
-          </button>
+          <div className="flex items-end">
+            <button
+              onClick={() => setActiveTab("service")}
+              className={`flex-grow px-3 py-4 Esm:px-4 Esm:py-6 text-base Esm:text-xl sm:text-2xl font-extrabold rounded-t-xl transition-colors duration-300 bg-white text-blue-700`}
+              style={{
+                borderBottomRightRadius: activeTab === "service" ? "0" : "1rem",
+              }}
+            >
+              SERVICE
+            </button>
+            <div className="top-0 flex">
+              <div
+                className={`block tab ${activeTab === "projects" ? "text-[#5778cd]" : "text-white"}`}
+              ></div>
+              <div
+                className={`block tab2 ${activeTab === "projects" ? "text-[#5778cd]" : "text-white"}`}
+              ></div>
+              <div
+                className={`block tab3 ${activeTab === "projects" ? "text-[#5778cd]" : "text-white"}`}
+              ></div>
+            </div>
+
+            <button
+              onClick={() => setActiveTab("projects")}
+              className={`ml-[-2.5rem] EEsm:ml-[-4rem] flex-grow px-3 py-4 Esm:px-4 Esm:py-6 text-base Esm:text-xl sm:text-2xl font-extrabold rounded-t-xl transition-colors duration-300 bg-[#5778cd] text-white`}
+              style={{
+                borderBottomLeftRadius: activeTab === "projects" ? "0" : "1rem",
+              }}
+            >
+              FEATURED PROJECTS
+            </button>
+          </div>
 
           {/* Tab elements that are conditionally rendered */}
-          <div
-            className={`hidden sm:block tab ${activeTab === "projects" ? "text-[#5778cd]" : "text-white"}`}
-          ></div>
-          <div
-            className={`hidden sm:block tab2 ${activeTab === "projects" ? "text-[#5778cd]" : "text-white"}`}
-          ></div>
-          <div
-            className={`hidden sm:block tab3 ${activeTab === "projects" ? "text-[#5778cd]" : "text-white"}`}
-          ></div>
         </div>
 
         <div className="bg-white rounded-2xl rounded-tl-none">
           <div
-            className={`flex flex-col lg:flex-row rounded-2xl ${
+            className={`flex flex-col lg:flex-row rounded-2xl w-full ${
               activeTab === "service" ? "bg-white" : "custom-gradient-news"
-            } p-8 shadow-lg`}
+            } px-8 py-14 shadow-lg`}
           >
             {/* Left Section */}
-            <div className="flex-shrink-0 w-full lg:w-2/5 mb-4 lg:mb-0">
+            <div className="flex-shrink-0 w-full lg:w-[40%] mb-4 lg:mb-0">
               <Image
-                width={500}
-                height={500}
-                src={currentTabData[currentTitle].imageUrl} // Use the first item's image
+                src={currentTabData[currentTitle].imageUrl}
                 alt={currentTabData[currentTitle].title}
+                width={400} // Image width in pixels
+                height={500} // Image height in pixels
+                layout="responsive" // Maintains aspect ratio, and the image will cover its container
+                objectFit="cover" // Ensures the image covers the container
                 className="rounded-2xl mb-4"
               />
               <p
@@ -78,13 +86,12 @@ const TabComponent = () => {
                 }`}
               >
                 <p>See more</p>
-                
                 <ChevronRight className="h-6 w-6" />
               </button>
             </div>
 
             {/* Right Section */}
-            <div className="w-full lg:w-3/5 pl-0 lg:pl-8">
+            <div className="w-full lg:w-[60%] pl-0 lg:pl-8">
               <ul className="space-y-2">
                 {currentTabData.map((item, index) => (
                   <>
@@ -105,7 +112,9 @@ const TabComponent = () => {
                         <ArrowRightIcon className="w-5 h-5" />
                       </div>
                     </li>
-                    <div className={`w-full h-[1px] ${activeTab === "projects" ? "bg-gray-400" : "bg-gray-300"}` }></div>
+                    <div
+                      className={`w-full h-[1px] ${activeTab === "projects" ? "bg-gray-400" : "bg-gray-300"}`}
+                    ></div>
                   </>
                 ))}
               </ul>

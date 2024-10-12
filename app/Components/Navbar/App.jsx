@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { usePathname } from 'next/navigation'; // Importing usePathname
+import { usePathname } from 'next/navigation';
 import {
   Bars2Icon,
   XMarkIcon,
@@ -27,16 +27,13 @@ const Navbar = () => {
   const [isSubmenuOpen, setIsSubmenuOpen] = useState(false);
   const [navBackground, setNavBackground] = useState(false);
   
-  let pathname = usePathname(); // Getting the current path
-  console.log("Current URL Path: " + pathname); // Log the full path of the current page
+  let pathname = usePathname();
 
   useEffect(() => {
-    // Split the pathname to check its structure
-    const pathSegments = pathname.split('/').filter(Boolean); // Split and remove empty strings
+    const pathSegments = pathname.split('/').filter(Boolean);
     
-    // Check if the path is '/projects/[id]' (i.e., '/projects' followed by exactly one dynamic segment)
     if (pathSegments.length === 2 && pathSegments[0] === 'projects') {
-      setNavBackground(true); // Set a solid background for dynamic '/projects/[id]' routes
+      setNavBackground(true);
     } else {
       const handleScroll = () => {
         if (window.scrollY > 50) {
@@ -47,14 +44,11 @@ const Navbar = () => {
       };
   
       window.addEventListener('scroll', handleScroll);
-      
-      // Clean up event listener when the component is unmounted
       return () => {
         window.removeEventListener('scroll', handleScroll);
       };
     }
-  }, [pathname]); // Dependency on pathname
-  
+  }, [pathname]);
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
@@ -74,9 +68,22 @@ const Navbar = () => {
     open: { rotate: 0 },
   };
 
+  const smoothDropdownAnimation = {
+    hidden: {
+      height: 0,
+      opacity: 0,
+      transition: { duration: 0.3, ease: 'easeInOut' }
+    },
+    visible: {
+      height: "auto",
+      opacity: 1,
+      transition: { duration: 0.5, ease: 'easeInOut' }
+    }
+  };
+
   return (
     <div
-      className={`z-[4000] sticky top-0 transition-colors duration-300 ${
+      className={`z-[4000] sticky top-0 transition-colors duration-500 ${
         pathname === "/shaft" ? "bg-white shadow-md" : navBackground ? "bg-white shadow-md" : "bg-transparent"
       }`}
     >
@@ -109,7 +116,7 @@ const Navbar = () => {
               </DropdownTrigger>
               <DropdownMenu aria-label="Static Actions">
                 <DropdownItem href="/service/heatingPlant" key="edit1">
-                  Heating Plaint
+                  Heating Plant
                 </DropdownItem>
                 <DropdownItem href="/service/construction" key="edit2">
                   Construction
@@ -117,8 +124,8 @@ const Navbar = () => {
                 <DropdownItem href="/service/engineering" key="edit3">
                   Engineering
                 </DropdownItem>
-                <DropdownItem href="/service/training" key="edit4">
-                  Training
+                <DropdownItem href="/service/safety" key="edit4">
+                Safety
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
@@ -187,7 +194,7 @@ const Navbar = () => {
                 className="h-6 w-6 z-50"
                 variants={isOpen ? xIconVariants : menuIconVariants}
                 animate={isOpen ? "open" : "closed"}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
               >
                 {isOpen ? (
                   <XMarkIcon
@@ -203,13 +210,21 @@ const Navbar = () => {
         </div>
       </div>
       <motion.div
-        initial={{ height: 0, opacity: 0 }}
-        animate={{ height: isOpen ? "100vh" : 0, opacity: isOpen ? 1 : 0 }}
-        transition={{ duration: 0.3 }}
+        initial="hidden"
+        animate={isOpen ? "visible" : "hidden"}
+        variants={{
+          hidden: { height: 0, opacity: 0, transition: { duration: 0.4, ease: "easeInOut" } },
+          visible: { height: "100vh", opacity: 1, transition: { duration: 0.6, ease: "easeInOut" } }
+        }}
         className={`${isOpen ? "block" : "hidden"} fixed sm:flex md:flex lg:flex top-0 left-0 w-full bg-[#161617] shadow-lg`}
       >
         {isOpen && (
-          <div className="px-9 pt-[10rem] pb-3 space-y-1">
+          <motion.div
+            className="px-9 pt-[10rem] pb-3 space-y-1"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+          >
             <div className="flex items-center" onClick={toggleSubmenu}>
               <a
                 href="#"
@@ -221,75 +236,68 @@ const Navbar = () => {
                 className="ml-2"
                 initial={{ rotate: 0 }}
                 animate={{ rotate: isSubmenuOpen ? 90 : 0 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
               >
-                <ChevronRightIcon className="w-8 h-8 text-white" />
+                <ChevronRightIcon className="h-6 w-6 text-white" />
               </motion.div>
             </div>
-            {isSubmenuOpen && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                transition={{ duration: 0.3 }}
-                className="pl-6"
+            <motion.div
+              variants={smoothDropdownAnimation}
+              initial="hidden"
+              animate={isSubmenuOpen ? "visible" : "hidden"}
+              className="pl-4"
+            >
+              <Link
+                href="/service/heatingPlant"
+                className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-2xl"
               >
-                <a
-                  href="/cources/html/html-introduction"
-                  className="block px-4 py-2 text-2xl text-white hover:bg-yellow-500 rounded-md"
-                >
-                  Mining
-                </a>
-                <a
-                  href="/cources/css/css-syntax"
-                  className="block px-4 py-2 text-2xl text-white hover:bg-yellow-500 rounded-md"
-                >
-                  Mining
-                </a>
-                <a
-                  href="/cources/javascript/js-introduction"
-                  className="block px-4 py-2 text-2xl text-white hover:bg-yellow-500 rounded-md"
-                >
-                  Mining
-                </a>
-                <a
-                  href="/cources/python/python-home"
-                  className="block px-4 py-2 text-2xl text-white hover:bg-yellow-500 rounded-md"
-                >
-                  Mining
-                </a>
-                <a
-                  href="/cources/cpp/cpp-home"
-                  className="block px-4 py-2 text-2xl text-white hover:bg-yellow-500 rounded-md"
-                >
-                  Mining
-                </a>
-                <a
-                  href="/cources/csharp/csharp-home"
-                  className="block px-4 py-2 text-2xl text-white hover:bg-yellow-500 rounded-md"
-                >
-                  Mining
-                </a>
-              </motion.div>
-            )}
-            <a
-              href="./"
+                Heating Plant
+              </Link>
+              <Link
+                href="/service/construction"
+                className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-2xl"
+              >
+                Construction
+              </Link>
+              <Link
+                href="/service/engineering"
+                className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-2xl"
+              >
+                Engineering
+              </Link>
+              <Link
+                href="/service/Safety"
+                className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-2xl"
+              >
+                Safety
+              </Link>
+            </motion.div>
+
+            <Link
+              href="/About-us"
               className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-3xl"
             >
-              Projects
-            </a>
-            <a
-              href="/about-us"
+              About us
+            </Link>
+            <Link
+              href="/careers"
               className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-3xl"
             >
               Careers
-            </a>
-            <a
+            </Link>
+            <Link
+              href="/projects"
+              className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-3xl"
+            >
+              Projects
+            </Link>
+            <Link
               href="/contact-us"
               className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-3xl"
             >
-              About Us
-            </a>
-          </div>
+              Contact us
+            </Link>
+          </motion.div>
         )}
       </motion.div>
     </div>
