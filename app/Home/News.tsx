@@ -13,7 +13,7 @@ import {
   ChevronLeftIcon,
   CalendarIcon,
 } from "@heroicons/react/24/solid";
-import {News} from './data'
+import { News } from './data';
 import Link from "next/link";
 
 export default function NewsCarousel() {
@@ -25,11 +25,8 @@ export default function NewsCarousel() {
     descriptionUnderImage: string;
   }
 
-  // Add type annotation for `hoveredItem`
-  const [hoveredItem, setHoveredItem] = useState<Project | null>(null);
+  // Ref to control Swiper navigation
   const swiperRef = useRef<SwiperClass | null>(null);
-
-  
 
   return (
     <div className="relative mt-16 w-full mx-auto px-2 sm:px-6 md:px-12 lg:px-12 xl:px-36 md:pb-16">
@@ -63,49 +60,49 @@ export default function NewsCarousel() {
           640: { slidesPerView: 1 },
           768: { slidesPerView: 2 },
           1024: { slidesPerView: 3 },
-          1280: { slidesPerView: 4 },
+          1567: { slidesPerView: 4 },
         }}
         loop={true}
         className="swiper-container"
       >
         {News.Content.map((item, index) => (
           <SwiperSlide key={index}>
-                  <Link key={item.id} href={`/Home/${item.id}`}>
-
-            <div className="bg-white rounded-xl overflow-hidden hover:shadow-lg transition-transform duration-300 ease-out cursor-pointer hover:scale-95">
-              <Image
-                src={item.image}
-                alt={item.title}
-                width={100}
-                height={100}
-                className="h-auto w-full object-cover hover:scale-105 transition-transform duration-300 ease-out"
-              />
-              <div className="p-4">
-                <div className="flex items-center text-gray-500 text-sm mb-2 gap-2 mt-1">
-                  <CalendarIcon className="size-5" />
-
-                  {item.date}
-                </div>
-                <h3 className="text-xl font-semibold text-gray-800">
-                  {item.title}
-                </h3>
-                <p className="text-base font-light text-gray-600 mt-2">{item.description}</p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {item.tags.map((tag, i) => (
-                    <span
-                      key={i}
-                      className="border-blue-800 border rounded-lg text-blue-800 text-sm px-3 py-2"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+            <Link key={item.id} href={`/Home/${item.id}`}>
+              <div className="bg-white rounded-xl overflow-hidden hover:shadow-lg transition-transform duration-300 ease-out cursor-pointer hover:scale-95">
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  width={100}
+                  height={100}
+                  className="h-auto w-full object-cover hover:scale-105 transition-transform duration-300 ease-out"
+                  layout="responsive" // Ensure responsive behavior for images
+                />
+                <div className="p-4">
+                  <div className="flex items-center text-gray-500 text-sm mb-2 gap-2 mt-1">
+                    <CalendarIcon className="h-5 w-5" /> {/* Correct size */}
+                    {item.date}
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-800">
+                    {item.title}
+                  </h3>
+                  <p className="text-base font-light text-gray-600 mt-2">
+                    {item.description}
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {item.tags.map((tag, i) => (
+                      <span
+                        key={i}
+                        className="border-blue-800 border rounded-lg text-blue-800 md:text-xs lg:text-sm px-3 py-2"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
             </Link>
           </SwiperSlide>
         ))}
-        
       </Swiper>
     </div>
   );

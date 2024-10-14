@@ -33,7 +33,6 @@ const Timeline = () => {
   return (
     <div className="overflow-x-auto py-8 text-black scrollbar-hide" ref={timelineRef}>
       <div className="md:ml-36">
-        <h1>{scrollXValue}px</h1> {/* Displaying the horizontal scroll value */}
         <div className="relative flex space-x-8 px-2 md:px-6" style={{ width: 'max-content' }}>
           {/* Timeline with alternating heights */}
           {TimeLineData.events.map((event, index) => {

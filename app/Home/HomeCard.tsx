@@ -54,13 +54,13 @@ function HomeCard() {
           ref={ref}
           className="w-full lg:w-2/3 flex flex-col md:flex-row md:justify-around md:items-center px-4 py-12 md:px-6 md:py-16 lg:px-20 lg:py-20 rounded-2xl text-white custom-gradient text-3xl sm:text-5xl md:text-5xl lg:text-5xl xl:text-7xl"
         >
-          <div className="flex flex-col items-center space-y-2 lg:space-y-4">
-            <p className="text-lg md:text-xl lg:text-2xl text-center">
+          <div className="flex  md:flex-col flex-row items-center space-y-2 lg:space-y-4">
+            <p className="text-lg md:text-xl lg:text-2xl text-left md:text-center">
               Completed
               <br />
               Projects
             </p>
-            <span className="font-bold font-sans">
+            <span className="font-bold font-sans text-3xl sm:text-5xl md:text-5xl lg:text-5xl xl:text-6xl">
               {countState.isCounting && (
                 <CountUp
                   className="account-balance"
@@ -74,13 +74,13 @@ function HomeCard() {
             </span>
           </div>
 
-          <div className="flex flex-col items-center space-y-2 lg:space-y-4">
-            <p className="text-lg md:text-xl lg:text-2xl text-center">
+          <div className="flex md:flex-col flex-row items-center space-y-2 lg:space-y-4 ">
+            <p className="text-lg md:text-xl lg:text-2xl  text-left md:text-center">
               LTI Free
               <br />
               Manhours
             </p>
-            <span className="font-bold font-sans">
+            <span className="font-bold font-sans  text-3xl sm:text-5xl md:text-5xl lg:text-5xl xl:text-6xl">
               {countState.isCounting && (
                 <CountUp
                   className="account-balance"
@@ -94,14 +94,14 @@ function HomeCard() {
             </span>
           </div>
 
-          <div className="flex flex-col items-center space-y-2 lg:space-y-4">
-            <p className="text-lg md:text-xl lg:text-2xl text-center">
+          <div className="flex  md:flex-col flex-row items-center space-y-2 lg:space-y-4">
+            <p className="text-lg md:text-xl lg:text-2xl  text-left md:text-center">
               Total manhours
               <br />
               employed
             </p>
             <div className="flex items-center font-sans">
-              <span className="font-bold ">
+              <span className="font-bold text-3xl sm:text-5xl md:text-5xl lg:text-5xl xl:text-6xl">
                 {countState.isCounting && (
                   <CountUp
                     className="account-balance"

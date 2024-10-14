@@ -206,10 +206,10 @@ body {
   .bevel4 {
     position: relative;
     top: 0px;
-    left: -22px;
+    left: -27px;
     display: inline-block;
-    height: 22px;
-    width: 22px;
+    height: 28px;
+    width: 28px;
     transform: translateX(100%);
     overflow: hidden;
   }
@@ -222,8 +222,7 @@ body {
     height: 100%;
     width: 100%;
     box-shadow: 0 0 0 100px #f0f0f0;
-    border-radius: 0 0 100% 0;
-    transform: rotate(90deg);
+    border-radius: 0 0 0 100%;
   }
 
 
@@ -252,11 +251,11 @@ body {
 
   .bevel6 {
     position: relative;
-    top: 0px;
-    left: -26px;
+    top: 8px;
+    left: -28px;
     display: inline-block;
-    height: 26px;
-    width: 26px;
+    height: 28px;
+    width: 28px;
     transform: translateX(100%);
     overflow: hidden;
   }
@@ -268,8 +267,8 @@ body {
     left: 0;
     height: 100%;
     width: 100%;
-    box-shadow: 0 0 0 100px #f0f0f0;
-    border-radius: 70% 0 0 0;
+    box-shadow: 0 0 0 100px #ffffff;
+    border-radius: 60% 0 0 0;
   }
 
   .bevel7 {
@@ -297,10 +296,10 @@ body {
   .bevel8 {
     position: relative;
     top: 0px;
-    right: 53px;
+    right: 27px;
     display: inline-block;
-    height: 28px;
-    width: 28px;
+    height: 27px;
+    width: 27px;
     transform: translateX(100%);
     overflow: hidden;
   }
@@ -313,7 +312,7 @@ body {
     height: 100%;
     width: 100%;
     box-shadow: 0 0 0 100px #f0f0f0;
-    border-radius: 0 0 0 100%;
+    border-radius: 0 0 0 90%;
   }
 
   .bevel9 {

@@ -17,7 +17,7 @@ function VideoPage() {
   };
 
   return (
-    <div className='flex items-center justify-center border-white md:border-r-8 mt-[-4rem] mr-[0.2rem] bg-[#f0f0f0]'>
+    <div className='flex items-center justify-center border-white md:border-r-8 mt-[-4rem] bg-[#f0f0f0]'>
       <div className="relative w-full h-screen lg:h-full overflow-hidden clip-corner">
         <video
           ref={videoRef}
