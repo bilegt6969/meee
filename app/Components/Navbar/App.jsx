@@ -105,7 +105,7 @@ const Navbar = () => {
               <DropdownTrigger>
                 <Button variant="light">
                   <p
-                    className={`${navBackground ? "text-black" : "text-white"}`}
+                    className={`text-base ${navBackground ? "text-black" : "text-white"}`}
                   >
                     Services
                   </p>
@@ -135,19 +135,19 @@ const Navbar = () => {
             >
               <Link
                 href="/projects"
-                className="hover:text-gray-400 transition px-3 py-2 whitespace-nowrap rounded-md text-sm"
+                className="hover:text-gray-400 transition px-3 py-2 whitespace-nowrap rounded-md text-base"
               >
                 Projects
               </Link>
               <Link
                 href="/careers"
-                className="hover:text-gray-400 transition px-3 py-2 whitespace-nowrap rounded-md text-sm"
+                className="hover:text-gray-400 transition px-3 py-2 whitespace-nowrap rounded-md text-base"
               >
                 Careers
               </Link>
               <Link
                 href="/About-us"
-                className="hover:text-gray-400 transition px-3 py-2 whitespace-nowrap rounded-md text-sm"
+                className="hover:text-gray-400 transition px-3 py-2 whitespace-nowrap rounded-md text-base"
               >
                 About Us
               </Link>
@@ -219,86 +219,95 @@ const Navbar = () => {
         className={`${isOpen ? "block" : "hidden"} fixed sm:flex md:flex lg:flex top-0 left-0 w-full bg-[#161617] shadow-lg`}
       >
         {isOpen && (
-          <motion.div
-            className="px-9 pt-[10rem] pb-3 space-y-1"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-          >
-            <div className="flex items-center" onClick={toggleSubmenu}>
-              <a
-                href="#"
-                className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-3xl"
-              >
-                Services
-              </a>
-              <motion.div
-                className="ml-2"
-                initial={{ rotate: 0 }}
-                animate={{ rotate: isSubmenuOpen ? 90 : 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-              >
-                <ChevronRightIcon className="h-6 w-6 text-white" />
-              </motion.div>
-            </div>
-            <motion.div
-              variants={smoothDropdownAnimation}
-              initial="hidden"
-              animate={isSubmenuOpen ? "visible" : "hidden"}
-              className="pl-4"
-            >
-              <Link
-                href="/service/heatingPlant"
-                className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-2xl"
-              >
-                Heating Plant
-              </Link>
-              <Link
-                href="/service/construction"
-                className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-2xl"
-              >
-                Construction
-              </Link>
-              <Link
-                href="/service/engineering"
-                className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-2xl"
-              >
-                Engineering
-              </Link>
-              <Link
-                href="/service/Safety"
-                className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-2xl"
-              >
-                Safety
-              </Link>
-            </motion.div>
+  <motion.div
+    className="px-9 pt-[10rem] pb-3 space-y-1"
+    initial={{ opacity: 0, scale: 0.95 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.6, ease: "easeInOut" }}
+  >
+    <div className="flex items-center" onClick={toggleSubmenu}>
+      <a
+        href="#"
+        className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-3xl"
+      >
+        Services
+      </a>
+      <motion.div
+        className="ml-2"
+        initial={{ rotate: 0 }}
+        animate={{ rotate: isSubmenuOpen ? 90 : 0 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+      >
+        <ChevronRightIcon className="h-6 w-6 text-white" />
+      </motion.div>
+    </div>
+    <motion.div
+      variants={smoothDropdownAnimation}
+      initial="hidden"
+      animate={isSubmenuOpen ? "visible" : "hidden"}
+      className="pl-4"
+    >
+      <Link
+        href="/service/heatingPlant"
+        className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-2xl"
+        onClick={() => setIsOpen(false)}  // Close navbar after clicking
+      >
+        Heating Plant
+      </Link>
+      <Link
+        href="/service/construction"
+        className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-2xl"
+        onClick={() => setIsOpen(false)}  // Close navbar after clicking
+      >
+        Construction
+      </Link>
+      <Link
+        href="/service/engineering"
+        className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-2xl"
+        onClick={() => setIsOpen(false)}  // Close navbar after clicking
+      >
+        Engineering
+      </Link>
+      <Link
+        href="/service/Safety"
+        className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-2xl"
+        onClick={() => setIsOpen(false)}  // Close navbar after clicking
+      >
+        Safety
+      </Link>
+    </motion.div>
 
-            <Link
-              href="/About-us"
-              className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-3xl"
-            >
-              About us
-            </Link>
-            <Link
-              href="/careers"
-              className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-3xl"
-            >
-              Careers
-            </Link>
-            <Link
-              href="/projects"
-              className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-3xl"
-            >
-              Projects
-            </Link>
-            <Link
-              href="/contact-us"
-              className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-3xl"
-            >
-              Contact us
-            </Link>
-          </motion.div>
-        )}
+    <Link
+      href="/About-us"
+      className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-3xl"
+      onClick={() => setIsOpen(false)}  // Close navbar after clicking
+    >
+      About us
+    </Link>
+    <Link
+      href="/careers"
+      className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-3xl"
+      onClick={() => setIsOpen(false)}  // Close navbar after clicking
+    >
+      Careers
+    </Link>
+    <Link
+      href="/projects"
+      className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-3xl"
+      onClick={() => setIsOpen(false)}  // Close navbar after clicking
+    >
+      Projects
+    </Link>
+    <Link
+      href="/contact-us"
+      className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-3xl"
+      onClick={() => setIsOpen(false)}  // Close navbar after clicking
+    >
+      Contact us
+    </Link>
+  </motion.div>
+)}
+
       </motion.div>
     </div>
   );

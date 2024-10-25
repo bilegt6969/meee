@@ -5,20 +5,29 @@ import { ArrowRightIcon } from "@heroicons/react/24/solid";
 import { ChevronRight } from "lucide-react";
 import { FileShapedNews } from "./data";
 import "./style.css";
+import { IArticle } from "@/lib/kb";
+import { IArticle2 } from "@/lib/kb2";
 
-const TabComponent = () => {
+interface TabComponentProps {
+  ServiceArticle?: IArticle[];
+  ProjectsArticle?: IArticle2[];
+}
+
+const TabComponent = ({ServiceArticle, ProjectsArticle}: TabComponentProps) => {
   const [activeTab, setActiveTab] = useState("service");
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const currentTabData =
-    activeTab === "service"
-      ? FileShapedNews.services
-      : FileShapedNews.featuredProjects;
-  const [currentTitle, setCurrentTitle] = useState(0);
+  const article = activeTab === "service" ? ServiceArticle : ProjectsArticle;
+
+  console.log('ff' + (article?.length ?? 0));
+
+  const ImageUrl = "https://khas-dayan.api.erxes.io/api/read-file?key="+article?.[currentIndex]?.image?.url
 
   return (
     <div className="relative flex justify-center items-center bg-[#f0f0f0] mt-16 px-1 sm:px-6 md:px-12 lg:px-18 xl:px-36">
       <div className="w-full justify-between">
         {/* Tab Header */}
+        <div className="w-full bg-black h-20" onClick={()=>{console.log(article)}}>test</div>
         <div className="flex flex-row items-end">
           <div className="flex items-end">
             <button
@@ -65,8 +74,8 @@ const TabComponent = () => {
             {/* Left Section */}
             <div className="flex-shrink-0 w-full lg:w-[40%] mb-4 lg:mb-0">
               <Image
-                src={currentTabData[currentTitle].imageUrl}
-                alt={currentTabData[currentTitle].title}
+                src={ImageUrl}
+                alt={`Image for ${article?.[currentIndex]?.title ?? 'article'}`}
                 width={400} // Image width in pixels
                 height={500} // Image height in pixels
                 layout="responsive" // Maintains aspect ratio, and the image will cover its container
@@ -76,7 +85,7 @@ const TabComponent = () => {
               <p
                 className={`mt-4 ${activeTab === "projects" ? "text-white" : "text-gray-600"}`}
               >
-                {currentTabData[currentTitle].descriptionUnderImage}
+                {article?.[currentIndex]?.content}
               </p>
               <button
                 className={`mt-4 px-4 py-2 rounded-lg font-semibold items-center flex ${
@@ -93,21 +102,21 @@ const TabComponent = () => {
             {/* Right Section */}
             <div className="w-full lg:w-[60%] pl-0 lg:pl-8">
               <ul className="space-y-2">
-                {currentTabData.map((item, index) => (
+                {article?.map((item, index) => (
                   <>
                     <li
-                      key={index}
-                      onClick={() => setCurrentTitle(index)}
+                      key={article?.[index]?._id}
+                      onClick={() => setCurrentIndex(index)}
                       className={`py-4 flex justify-between items-center hover:text-blue-700 hover:bg-gray-200 p-4 transition-all ease-in-out duration-200 rounded-xl
-          ${currentTitle === index ? "text-blue-800 bg-white" : "text-black"} 
-          ${activeTab === "projects" ? (currentTitle === index ? "text-blue-600 bg-white border-gray-100" : "text-white") : ""} 
+          ${currentIndex === index ? "text-blue-800 bg-white" : "text-black"} 
+          ${activeTab === "projects" ? (currentIndex === index ? "text-blue-600 bg-white border-gray-100" : "text-white") : ""} 
           ${index === 0 ? "rounded-t-xl" : ""}  // Only round the top of the first item
-          ${index === currentTabData.length - 1 ? "rounded-b-xl" : ""}  // Only round the bottom of the last item
+          ${index === article.length - 1 ? "rounded-b-xl" : ""}  // Only round the bottom of the last item
         `}
                     >
                       <h1 className="text-lg">{item.title}</h1>
                       <div
-                        className={`border p-2 rounded-lg ${currentTitle === index ? "border-white bg-blue-700 text-white" : ""} ${activeTab === "projects" ? "border-white" : "border-black"}`}
+                        className={`border p-2 rounded-lg ${currentIndex === index ? "border-white bg-blue-700 text-white" : ""} ${activeTab === "projects" ? "border-white" : "border-black"}`}
                       >
                         <ArrowRightIcon className="w-5 h-5" />
                       </div>

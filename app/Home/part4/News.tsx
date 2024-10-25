@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Swiper as SwiperClass } from "swiper";
 import React, { useRef, useState } from "react";
 // import Swiper and modules styles
-import "../../app/globals.css";
+import "@/app/globals.css";
 import "swiper/css";
 import Image from "next/image";
 import "swiper/css/pagination";
@@ -13,7 +13,7 @@ import {
   ChevronLeftIcon,
   CalendarIcon,
 } from "@heroicons/react/24/solid";
-import { News } from './data';
+import { News } from '../part3/data';
 import Link from "next/link";
 
 export default function NewsCarousel() {
@@ -51,7 +51,7 @@ export default function NewsCarousel() {
         </div>
       </div>
 
-      <Swiper
+       <Swiper
         onSwiper={(swiper: any) => {
           swiperRef.current = swiper;
         }}

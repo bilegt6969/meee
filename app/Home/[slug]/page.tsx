@@ -1,5 +1,5 @@
 import React from 'react'
-import {News} from '../data'
+import {News} from '../part3/data'
 
 function page() {
   return (

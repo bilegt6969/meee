@@ -41,24 +41,10 @@ function Page() {
   return (
     <div className="h-full w-full custom-gradient mt-[-4rem]">
       <section className="relative top-[-4rem] flex-grow flex h-screen">
-        <div className="relative top-[20vh] md:top-[40vh] left-4 md:left-10 max-w-[45rem] text-center">
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white uppercase">
-            Projects <span className="text-[#6581C7]">completed</span> <br />{" "}
-            with our staff
-          </h1>
-          <p className="mt-6 font-thin text-white leading-relaxed px-4">
-            As a third generation family owned and operated business, California
-            Premier Energy is driven by an unparalleled understanding of the
-            roofing, solar, and battery needs of today’s homes. We’re your
-            trusted partner in sustainable energy solutions.
-          </p>
-        </div>
-      </section>
-
-      <section className="relative text-left mt-0 w-full mx-3  flex flex-col md:flex-row items-stretch">
-        <div className="items-end flex md:w-[40%]">
+        
+        <div className="items-end flex">
         <div
-          className="relative px-6 md:px-12 pt-6 md:pt-12 w-full rounded-t-2xl rounded-tr-2xl bg-[#f0f0f0] flex flex-col justify-between">
+          className="relative bottom-[-4rem] left-3 px-6 md:px-12 pt-6 md:pt-12 w-full md:w-[40%] rounded-t-2xl rounded-tr-2xl bg-[#f0f0f0] flex flex-col justify-between">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold uppercase text-[#1845AD]">
             OUR PROJECTS
           </h1>
@@ -70,22 +56,20 @@ function Page() {
           </p>
         </div>
         <div className="bevel4"></div>
-        </div>
-        
 
-        {/* Right section with ref for IntersectionObserver */}
+
         <div
           ref={ref}
-          className="relative flex flex-1 w-full rounded-2xl text-white flex-col md:flex-row"
+          className="relative bottom-[0rem] flex-1 w-full rounded-2xl text-white items-end flex"
         >
-          <div className="w-full flex flex-col lg:flex-row justify-around items-center px-6 py-20 rounded-2xl text-white">
+          <div className="w-full flex flex-col lg:flex-row space-y-4 lg:space-y-0 justify-around lg:items-end px-6 py-0 rounded-2xl text-white">
             <div className="flex flex-col items-center space-y-2 lg:space-y-4">
               <p className="text-lg md:text-xl lg:text-2xl text-center">
                 Completed
                 <br />
                 Projects
               </p>
-              <span className="font-bold text-4xl md:text-6xl lg:text-7xl">
+              <span className="font-bold text-3xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-7xl">
                 {countState.isCounting && (
                   <CountUp
                     className="account-balance"
@@ -105,7 +89,7 @@ function Page() {
                 <br />
                 Manhours
               </p>
-              <span className="font-bold text-4xl md:text-6xl lg:text-7xl">
+              <span className="font-bold text-3xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-7xl">
                 {countState.isCounting && (
                   <CountUp
                     className="account-balance"
@@ -126,7 +110,7 @@ function Page() {
                 employed
               </p>
               <div className="flex items-center">
-                <span className="font-bold text-4xl md:text-6xl lg:text-7xl ">
+              <span className="font-bold text-3xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-7xl">
                   {countState.isCounting && (
                     <CountUp
                       className="account-balance"
@@ -171,6 +155,13 @@ function Page() {
             </div>
           </div>
         </div>
+
+        </div>
+
+        
+
+        {/* Right section with ref for IntersectionObserver */}
+        
       </section>
 
       <section className="">

@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { getKbArticlesByCode } from "@/lib/kb";
+export const revalidate = 1
 
 // Sample data for sections
 const sectionsData = [
@@ -29,30 +31,31 @@ const sectionsData = [
   },
 ];
 
-export default function Page() {
+export default async function Page() {
+  const{article} =await getKbArticlesByCode("Cola")
   return (
     <div>
       {/* Hero Section */}
       <section className="relative">
-        <Image
-          width={1920}
-          height={1080}
-          src="/bg.jpg"
-          alt="Background image"
-          className="relative h-screen -top-16 w-full object-cover brightness-50"
-        />
-        <div className="absolute top-1/3 left-5 md:left-[10%] text-left">
-          <h1 className="text-4xl md:text-6xl lg:text-8xl font-extrabold mb-4 text-white uppercase">
-            Careers
-          </h1>
-          <p className="font-thin max-w-[85%] md:max-w-[70%] lg:max-w-[40%] text-base md:text-lg text-white leading-relaxed">
-            We invest heavily in learning and development opportunities and
-            believe in supporting and growing our people in their professional
-            development, ensuring they have industry-leading standards of
-            training and competence.
-          </p>
-        </div>
-      </section>
+  <Image
+    width={1920}
+    height={1080}
+    src="/bg.jpg"
+    alt="Background image"
+    className="relative h-screen -top-16 w-full object-cover brightness-50"
+  />
+  <div className="absolute top-1/3 left-5 md:left-[10%] text-left">
+    <h1 className="text-4xl md:text-6xl lg:text-8xl font-extrabold mb-4 text-white uppercase">
+      Careers
+    </h1>
+    <div
+      className="font-thin max-w-[85%] md:max-w-[70%] lg:max-w-[40%] text-base md:text-lg text-white leading-relaxed"
+      // Render the content returned by articles[0].content as HTML
+      dangerouslySetInnerHTML={{ __html: article[0].content }}
+    />
+  </div>
+</section>
+
 
       {/* Dynamic Sections */}
       <section className="bg-[#f0f0f0] mt-[-4rem] text-black py-16 md:py-32 px-4 space-y-16">

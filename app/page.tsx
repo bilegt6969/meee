@@ -1,17 +1,21 @@
 import React from 'react';
-import VideoPage from './Home/video/page';
-import HomeCard from './Home/HomeCard';
-import FeaturedProjects from './Home/FeaturedProjects'
-import News from './Home/News'
+import VideoPage from './Home/part1/video/page';
+import HomeCard from './Home/part2/HomeCard';
+import TabComponents from './Home/part3/FeaturedProjects'
+import News from './Home/part4/NewsCarouselParent'
+import { getKbArticlesByCode } from "@/lib/kb";
+import { getKbArticlesByCode2 } from "@/lib/kb2";
 
-const Page = () => {
+async function Page(){
+  const {article} = await getKbArticlesByCode("Service")
+  const {article2} = await getKbArticlesByCode2("Projects")
   return (
     <div className="bg-[#f0f0f0]">
       <VideoPage />
       <HomeCard/>
-      <FeaturedProjects/>
+      <TabComponents ServiceArticle={article} ProjectsArticle={article2}/>
       <News/>
-      
+
       
     </div>
   );

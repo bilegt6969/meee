@@ -205,11 +205,11 @@ body {
 
   .bevel4 {
     position: relative;
-    top: 0px;
-    left: -27px;
+    top: 64px;
+    left: -15px;
     display: inline-block;
-    height: 28px;
-    width: 28px;
+    height: 27px;
+    width: 27px;
     transform: translateX(100%);
     overflow: hidden;
   }
@@ -296,10 +296,10 @@ body {
   .bevel8 {
     position: relative;
     top: 0px;
-    right: 27px;
+    left: -28px;
     display: inline-block;
-    height: 27px;
-    width: 27px;
+    height: 28px;
+    width: 28px;
     transform: translateX(100%);
     overflow: hidden;
   }
@@ -312,7 +312,7 @@ body {
     height: 100%;
     width: 100%;
     box-shadow: 0 0 0 100px #f0f0f0;
-    border-radius: 0 0 0 90%;
+    border-radius: 0 0 0 80%;
   }
 
   .bevel9 {
@@ -338,14 +338,13 @@ body {
   }
   .bevel10 {
     position: relative;
-    top: 1px;
-    right: 0px;
+    top: 0px;
+    right: 26px;
     display: inline-block;
     height: 28px;
     width: 28px;
     transform: translateX(100%);
     overflow: hidden;
-    transform: rotate(-90deg);
   }
   
   .bevel10:before {
@@ -356,13 +355,13 @@ body {
     height: 100%;
     width: 100%;
     box-shadow: 0 0 0 100px #f0f0f0;
-    border-radius: 0 0 0 100%;
+    border-radius: 0 0 100% 0;
   }
 
   .bevel11 {
     position: relative;
-    top: -10px;
-    right: 24px;
+    top: -28px;
+    right: 28px;
     display: inline-block;
     height: 28px;
     width: 28px;
@@ -380,6 +379,28 @@ body {
     width: 100%;
     box-shadow: 0 0 0 100px #f0f0f0;
     border-radius: 0 0 0 100%;
+  }
+
+  .bevel12 {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    display: inline-block;
+    height: 28px;
+    width: 28px;
+    transform: translateX(100%);
+    overflow: hidden;
+  }
+  
+  .bevel12:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    box-shadow: 0 0 0 100px #ffffff;
+    border-radius: 0 100%  0 0;
   }
 
   /* carouselStyles.css */
