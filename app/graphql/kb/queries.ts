@@ -47,6 +47,11 @@ const articles = gql`
         formId
         __typename
       }
+        forms {
+      brandId
+      formId
+        __typename
+      }
       createdUser {
         _id
         username

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -25,6 +25,7 @@
     "framer-motion": "^11.5.4",
     "google-fonts": "^1.0.0",
     "graphql": "^16.9.0",
+    "jotai": "^2.10.1",
     "keen-slider": "^6.8.6",
     "lucide-react": "^0.438.0",
     "next": "15.0.1",

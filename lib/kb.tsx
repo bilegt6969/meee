@@ -14,10 +14,10 @@ export type GetKbArticleDetail = (params?: CommonParams) => Promise<{
   article: IArticle;
 }>;
 
-export const getKbArticleDetail: GetKbArticleDetail = cache(async (params) => {
+export const getKbArticleDetail: GetKbArticleDetail = cache(async (id) => {
   const { data, error } = await getClient().query({
     query: queries.articleDetail,
-    variables: params?.variables,
+    variables: { _id: id },
     context: {
       headers: {
         "erxes-app-token": token,
@@ -32,6 +32,14 @@ export const getKbArticleDetail: GetKbArticleDetail = cache(async (params) => {
     error_msg: error?.message,
   };
 });
+
+export type GetKbArticles = (
+  code?: string,
+  params?: { variables?: QueryOptions["variables"] }
+) => Promise<{
+  error_msg: string | undefined;
+  article: IArticle[];
+}>;
 
 export const getKbArticlesByCode: GetKbArticles = cache(
   async (code, params) => {
@@ -60,26 +68,18 @@ export const getKbArticlesByCode: GetKbArticles = cache(
       },
     });
 
-
     const { knowledgeBaseArticles: article } = data || {};
     return {
-      article,
+      article: article || [],
       error_msg: error?.message,
     };
   }
 );
 
-export type GetKbArticles = (
-  code?: string,
-  params?: { variables?: QueryOptions["variables"] }
-) => Promise<{
-  error_msg: string | undefined;
-  article: IArticle[];
-
-
-}>;
-
 export interface IArticle {
+  createdDate: string;
+  forms: any;
+  code: string;
   _id: string;
   content: string;
   image?: IAttachment;

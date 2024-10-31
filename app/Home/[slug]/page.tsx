@@ -1,16 +1,15 @@
-import React from 'react'
-import {News} from '../part3/data'
+import NewsContent from './NewsContent';
 
-function page() {
-  return (
-    <div>
+type Params = Promise<{ slug: string }>;
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
 
-        {News.Content.map((item)=>(<h1>{item.description}</h1>))}
-
-        
-      
-    </div>
-  )
+interface PageProps {
+  params: Params;
+  searchParams: SearchParams;
 }
 
-export default page
+// Server Component
+export default async function Page({ params, searchParams }: PageProps) {
+  const resolvedParams = await params;
+  return <NewsContent slug={resolvedParams.slug} />;
+}

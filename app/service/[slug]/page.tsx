@@ -1,44 +1,38 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { Button } from "@/components/ui/button";
 import { ChevronRight, ArrowDown } from "lucide-react";
 import CarouselComponent from "../../Components/Carousel/page";
 import Body from "./body";
 import { getKbArticlesByCode } from "@/lib/kb";
 import { getKbArticlesByCode2 } from "@/lib/kb2";
-export const revalidate = 1;
 
-// Define the interface for the expected data structure
-interface DataType {
-  title: {
-    heading: string;
-    description: string;
-  };
-  body: Array<any>; // You can replace 'any' with the specific structure if known
-}
 
 export default async function Home({ params }: { params: Promise<{ slug: string }> }) {
   // Await the params object
   const { slug } = await params;
 
-  const { article } = await getKbArticlesByCode(String(slug));
+  const { article } = await getKbArticlesByCode(String(slug + "Data"));
+  const Heading = article.filter((item: any) => item.code === slug + "_Heading");
+  const NotHeading = article.filter((item: any) => item.code !== slug + "_Heading");
   const { article2 } = await getKbArticlesByCode2(String(slug) + ".Steps");
 
-  const ImageUrl = article?.[0]?.image?.url
-    ? `https://khas-dayan.api.erxes.io/api/read-file?key=erxes-saas/${article[0].image.url}`
+  const ImageUrl = Heading?.[0]?.image?.url
+    ? `https://khas-dayan.api.erxes.io/api/read-file?key=${Heading[0].image.url}`
     : '/1.png';
-
-  console.log(slug);
+//https://khas-dayan.api.erxes.io/api/read-file?key=erxes-saas/Np383hrPIbI2HlLM61G51DSCN0016.jpg
+  console.log(article);
 
   return (
     <div className="text-white custom-gradient mt-[-4rem] relative">
       {/* Hero Section */}
       <section className="relative w-full h-screen mx-[4px] md:mx-2 border-white border-[4px] border-r-0 md:border-r-8 border-t-0 md:border-8 md:border-t-0 rounded-3xl rounded-t-none rounded-br-none md:rounded-br-3xl md:rounded-bl-none bg-white">
-        <Image
-          src="/bgimg.png"
+      <Image
+          src={ImageUrl}
           alt="Heating Plant"
-          fill
-          className="rounded-b-3xl object-cover rounded-br-none md:rounded-br-3xl "
-          style={{ filter: "brightness(50%)" }} // Darken the image for better text readability
+          layout="fill"
+          objectFit="cover"
+          className="rounded-b-3xl"
+          style={{ filter: 'brightness(50%)' }} // Darken the image for better text readability
         />
 
         {/* Main Heading Section */}
@@ -46,11 +40,11 @@ export default async function Home({ params }: { params: Promise<{ slug: string 
           {article && (
             <>
               <h1 className="text-white text-left text-5xl sm:text-6xl md:text-8xl lg:text-7xl xl:text-7xl font-extrabold tracking-tight max-w-2xl">
-                {article[0].title}
+                {Heading[0].summary}
               </h1>
               <div
                 className="text-white text-left text-base md:text-lg lg:text-xl font-normal max-w-xl"
-                dangerouslySetInnerHTML={{ __html: article[0].content }}
+                dangerouslySetInnerHTML={{ __html: Heading[0].content }}
               />
             </>
           )}
@@ -79,7 +73,7 @@ export default async function Home({ params }: { params: Promise<{ slug: string 
 
       {/* Conditional Section based on body length */}
       <section
-        className={`md:ml-2 md:mt-0 mt-1 ml-1  pt-9 bg-[#f0f0f0] ${article && article.length % 2 === 0 ? "rounded-tl-3xl" : "rounded-tl-none rounded-tr-3xl lg:mr-0"}`}
+        className={`md:ml-2 md:mt-0 mt-1 ml-1  pt-9 bg-[#f0f0f0] ${NotHeading && NotHeading.length % 2 === 0 ? "rounded-tl-3xl" : "rounded-tl-none rounded-tr-3xl lg:mr-0"}`}
       >
         <div className="mt-8 md:mt-16 pb-16 md:pb-24 px-4 md:px-8 text-center mx-auto">
           <h1 className="text-4xl md:text-6xl font-bold text-blue-800">
@@ -117,16 +111,16 @@ export default async function Home({ params }: { params: Promise<{ slug: string 
       </section>
 
       {/* Heating Plant Projects Section */}
-      <section className="px-4 md:px-16 pt-16 w-full bg-white mx-auto">
+      {/* <section className="px-4 md:px-16 pt-16 w-full bg-white mx-auto">
         <h1 className="text-4xl md:text-6xl font-extrabold text-blue-800">
           HEATING PLANT PROJECTS
         </h1>
         <div className="mt-8">
           <CarouselComponent />
         </div>
-      </section>
+      </section> */}
 
-      <div className="pb-36 custom-gradient"></div>
+      {/* <div className="pb-36 custom-gradient"></div> */}
     </div>
   );
 }

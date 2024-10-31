@@ -4,7 +4,7 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import carousel CSS
 import "tailwindcss/tailwind.css";
 import { MapPinIcon } from "@heroicons/react/24/solid";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const CustomCarousel = () => {

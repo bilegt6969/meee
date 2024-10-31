@@ -9,7 +9,7 @@ import {
   ChevronDownIcon,
   PhoneIcon,
 } from "@heroicons/react/24/outline";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import LogoKhasuBlack from "../Navbar/LogoKhasuBlack.svg";
 import LogoKhasu from "../Navbar/LogoKhasu.png";
 import {
@@ -32,7 +32,7 @@ const Navbar = () => {
   useEffect(() => {
     const pathSegments = pathname.split('/').filter(Boolean);
     
-    if (pathSegments.length === 2 && pathSegments[0] === 'projects') {
+    if (pathSegments.length === 2 && (pathSegments[0] === 'projects' || pathSegments[0] === 'Home')) {
       setNavBackground(true);
     } else {
       const handleScroll = () => {
@@ -146,7 +146,7 @@ const Navbar = () => {
                 Careers
               </Link>
               <Link
-                href="/About-us"
+                href="/about-us"
                 className="hover:text-gray-400 transition px-3 py-2 whitespace-nowrap rounded-md text-base"
               >
                 About Us
@@ -278,7 +278,7 @@ const Navbar = () => {
     </motion.div>
 
     <Link
-      href="/About-us"
+      href="/about-us"
       className="text-white hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-3xl"
       onClick={() => setIsOpen(false)}  // Close navbar after clicking
     >

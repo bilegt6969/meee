@@ -80,6 +80,8 @@ export type GetKbArticles = (
 }>;
 
 export interface IArticle2 {
+  [x: string]: any;
+  code: string;
   _id: string;
   content: string;
   image?: IAttachment;

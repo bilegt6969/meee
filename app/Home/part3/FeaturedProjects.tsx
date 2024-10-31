@@ -1,6 +1,6 @@
 "use client";
 import { act, useState } from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { ArrowRightIcon } from "@heroicons/react/24/solid";
 import { ChevronRight } from "lucide-react";
 import { FileShapedNews } from "./data";
@@ -19,15 +19,13 @@ const TabComponent = ({ServiceArticle, ProjectsArticle}: TabComponentProps) => {
 
   const article = activeTab === "service" ? ServiceArticle : ProjectsArticle;
 
-  console.log('ff' + (article?.length ?? 0));
 
   const ImageUrl = "https://khas-dayan.api.erxes.io/api/read-file?key="+article?.[currentIndex]?.image?.url
 
   return (
-    <div className="relative flex justify-center items-center bg-[#f0f0f0] mt-16 px-1 sm:px-6 md:px-12 lg:px-18 xl:px-36">
+    <div className="relative flex justify-center items-center bg-[#f0f0f0] mt-16 px-1 sm:px-6 md:px-12 lg:px-18 xl:px-24">
       <div className="w-full justify-between">
         {/* Tab Header */}
-        <div className="w-full bg-black h-20" onClick={()=>{console.log(article)}}>test</div>
         <div className="flex flex-row items-end">
           <div className="flex items-end">
             <button
@@ -75,18 +73,19 @@ const TabComponent = ({ServiceArticle, ProjectsArticle}: TabComponentProps) => {
             <div className="flex-shrink-0 w-full lg:w-[40%] mb-4 lg:mb-0">
               <Image
                 src={ImageUrl}
-                alt={`Image for ${article?.[currentIndex]?.title ?? 'article'}`}
-                width={400} // Image width in pixels
-                height={500} // Image height in pixels
-                layout="responsive" // Maintains aspect ratio, and the image will cover its container
-                objectFit="cover" // Ensures the image covers the container
+                alt={article?.[currentIndex]?.title || 'Featured project image'}
+                width={300}
+                height={200}
+                layout="responsive"
+                objectFit="cover"
                 className="rounded-2xl mb-4"
               />
-              <p
+              <div
                 className={`mt-4 ${activeTab === "projects" ? "text-white" : "text-gray-600"}`}
-              >
-                {article?.[currentIndex]?.content}
-              </p>
+                dangerouslySetInnerHTML={{ __html: article?.[currentIndex]?.content || '' }}
+              />
+                
+              
               <button
                 className={`mt-4 px-4 py-2 rounded-lg font-semibold items-center flex ${
                   activeTab === "projects"
@@ -103,16 +102,14 @@ const TabComponent = ({ServiceArticle, ProjectsArticle}: TabComponentProps) => {
             <div className="w-full lg:w-[60%] pl-0 lg:pl-8">
               <ul className="space-y-2">
                 {article?.map((item, index) => (
-                  <>
-                    <li
-                      key={article?.[index]?._id}
+                  <li key={item._id}>
+                    <div
                       onClick={() => setCurrentIndex(index)}
                       className={`py-4 flex justify-between items-center hover:text-blue-700 hover:bg-gray-200 p-4 transition-all ease-in-out duration-200 rounded-xl
-          ${currentIndex === index ? "text-blue-800 bg-white" : "text-black"} 
-          ${activeTab === "projects" ? (currentIndex === index ? "text-blue-600 bg-white border-gray-100" : "text-white") : ""} 
-          ${index === 0 ? "rounded-t-xl" : ""}  // Only round the top of the first item
-          ${index === article.length - 1 ? "rounded-b-xl" : ""}  // Only round the bottom of the last item
-        `}
+                        ${currentIndex === index ? "text-blue-800 bg-white" : "text-black"} 
+                        ${activeTab === "projects" ? (currentIndex === index ? "text-blue-600 bg-white border-gray-100" : "text-white") : ""} 
+                        ${index === 0 ? "rounded-t-xl" : ""}
+                        ${index === article.length - 1 ? "rounded-b-xl" : ""}`}
                     >
                       <h1 className="text-lg">{item.title}</h1>
                       <div
@@ -120,11 +117,11 @@ const TabComponent = ({ServiceArticle, ProjectsArticle}: TabComponentProps) => {
                       >
                         <ArrowRightIcon className="w-5 h-5" />
                       </div>
-                    </li>
+                    </div>
                     <div
                       className={`w-full h-[1px] ${activeTab === "projects" ? "bg-gray-400" : "bg-gray-300"}`}
                     ></div>
-                  </>
+                  </li>
                 ))}
               </ul>
             </div>

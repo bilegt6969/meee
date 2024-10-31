@@ -1,6 +1,5 @@
 
 import type { Metadata } from "next";
-import { useRouter } from "next/router";
 import localFont from "next/font/local";
 import "./globals.css";
 import {Providers} from "./providers";

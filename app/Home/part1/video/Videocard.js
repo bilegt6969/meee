@@ -4,7 +4,7 @@
 import React, { useState, useRef } from 'react';
 import { SpeakerWaveIcon, SpeakerXMarkIcon } from '@heroicons/react/24/outline';
 
-const VideoPlayer = () => {
+const VideoPlayer = ({HomeElement}) => {
   const [mute, setMute] = useState(true); // Initially muted
   const videoRef = useRef(null); // Reference for the video element
 
@@ -14,6 +14,7 @@ const VideoPlayer = () => {
       videoRef.current.muted = !videoRef.current.muted; // Mute or unmute the video
     }
   };
+
 
   return (
     <>
@@ -26,7 +27,7 @@ const VideoPlayer = () => {
         muted={mute}
         className="object-cover h-screen w-full"
       >
-        <source src="./background.mp4" type="video/mp4" />
+        <source src={"https://khas-dayan.api.erxes.io/api/read-file?key="+HomeElement?.video?.url || ""} type="video/mp4" />
       </video>
 
       <button

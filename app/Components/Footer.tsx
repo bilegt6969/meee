@@ -1,5 +1,5 @@
 import React from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { PhoneIcon, MapPinIcon, EnvelopeIcon } from "@heroicons/react/24/solid";
 import { EnvelopeOpenIcon } from "@heroicons/react/24/outline";
 import { Button } from "@/components/ui/button";
@@ -22,7 +22,7 @@ const Footer = () => {
 
   return (
     <footer className="w-full bg-white border-t">
-      <div className="flex flex-col sm:flex-row mx-auto justify-between items-center gap-4 px-4 sm:px-6 md:px-12 lg:px-36 py-5">
+      <div className="flex flex-col sm:flex-row mx-auto justify-between items-center gap-4 px-4 sm:px-6 md:px-12 lg:px-24 py-5">
         {/* First item in the first grid column */}
         <div className="flex items-center space-x-4 mb-6 md:mb-0">
           <div className="border-2 p-4 rounded-2xl">
@@ -59,7 +59,7 @@ const Footer = () => {
       </div>
 
       <div className="border-t">
-        <div className="mx-auto px-4 sm:px-6 md:px-12 lg:px-36">
+        <div className="mx-auto px-4 sm:px-6 md:px-12 lg:px-24">
           <div className="grid grid-rows-2 md:grid-rows-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 py-10">
             <div className="mb-10 col-span-1 lg:col-span-2 lg:mb-0">
               <a href="https://pagedone.io/" className="flex justify-center lg:justify-start">

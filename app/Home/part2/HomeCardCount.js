@@ -35,6 +35,8 @@ function HomeCardCount({ content }) {
     };
   }, []);
 
+
+
   return (
     <div
       ref={ref}

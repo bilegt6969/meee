@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { ChevronRight } from "lucide-react";
 import Title from "./title";
 import "./style.css";
@@ -12,7 +12,7 @@ async function TabComponent({ isService }: { isService: boolean }){
     const { article } = await getKbArticlesByCode(isService ? "Service" : "Projects");
   
     return (
-      <div className="relative flex justify-center items-center bg-[#f0f0f0] mt-16 px-1 sm:px-6 md:px-12 lg:px-18 xl:px-36">
+      <div className="relative flex justify-center items-center bg-[#f0f0f0] mt-16 px-1 sm:px-6 md:px-12 xl:px-24">
         <div className="w-full justify-between">
           {/* Tab Header */}
           <Title />

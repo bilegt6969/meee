@@ -1,25 +1,26 @@
 import React from 'react';
+import { getKbArticlesByCode } from "@/lib/kb";
 
-function page() {
+async function page() {
+  const {article} = await getKbArticlesByCode('contact-us');
   return (
     <div className="min-h-screen w-full custom-gradient mt-[-4rem]">
-      <section className="pt-[20vh] mx-auto">
+      <section className="pt-[20vh] px-6 mx:px-8 sm:px-12 md:px-12 xl:px-24">
         <div className="relative flex flex-col lg:flex-row lg:space-x-8 text-gray-700 p-6">
-          {/* Text Section */}
-          <div className="flex-1 text-white max-w-xl mx-auto justify-center items-center my-auto text-center lg:text-left">
-            <h4 className="block font-sans text-3xl sm:text-4xl lg:text-6xl font-bold leading-snug tracking-tight">
-              INTERESTED IN JOINING US?
-            </h4>
-            <p className="block mt-4 font-sans font-light leading-relaxed text-lg sm:text-xl lg:text-2xl">
-              WE ARE always looking for motivated, keen people to join our teams
-              and are driven by our employees’ success. Whatever stage you are
-              at in your career, whether you are an apprentice or an experienced
-              construction worker, we want to hear from you.
-            </p>
+          {/* Text Section - Changed to items-start */}
+          <div className="flex-1 text-white max-w-xl mx-auto lg:items-start">
+            <div className="flex flex-col mt-[5rem] justify-start text-center lg:text-left">
+              <h4 className="block font-sans text-3xl sm:text-4xl lg:text-6xl font-bold leading-snug uppercase tracking-tight">
+                {article[0].title}
+              </h4>
+              <p className="block mt-4 font-sans font-light leading-relaxed text-lg ">
+                {article[0].summary}
+              </p>
+            </div>
           </div>
 
           {/* Form Section */}
-          <form className="flex-1 max-w-screen-lg mt-8 lg:mt-0 mb-2 w-full sm:w-96 lg:w-full p-6 bg-white text-black rounded-3xl shadow-lg">
+          <form className="flex-1 mt-8 lg:mt-0 w-full lg:w-full p-6 bg-white text-black rounded-3xl shadow-lg">
             <div className="flex flex-col gap-6 mb-1 lg:grid lg:grid-cols-2 lg:gap-8">
               {/* First Name */}
               <div className="relative">
