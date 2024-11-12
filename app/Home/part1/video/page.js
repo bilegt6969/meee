@@ -36,6 +36,7 @@ export default async function VideoPage() {
             className="font-thin mb-6 text-white"
             dangerouslySetInnerHTML={{ __html: Element[0].content }}
           />
+          
 
           <div className="flex items-center w-full">
             <Link href="/contact-us">
