@@ -31,8 +31,6 @@ export default async function Page({ params, searchParams }: PageProps) {
   // Fetch the article data
   const { article } = await getKbArticlesByCode(catCode);
 
-  console.log(article.length);
-
 
   return (
     <div className="custom-gradient bg-gray-100 md:p-2 mr-1">
@@ -78,6 +76,7 @@ export default async function Page({ params, searchParams }: PageProps) {
               <Image
                 src={imageUrl}
                 alt={title}
+                loading="lazy"
                 layout="fill"
                 objectFit="cover"
               />
@@ -100,6 +99,7 @@ export default async function Page({ params, searchParams }: PageProps) {
                   src={item.image?.url ? `https://khas-dayan.api.erxes.io/api/read-file?key=${item.image.url}` : '/placeholder.jpg'}
                   alt={item.title}
                   layout="fill" // Use fill to cover the square area
+                  loading="lazy"
                   objectFit="cover" // Cover the area while maintaining aspect ratio
                   className="transition-transform duration-300 group-hover:scale-105 ring-4" // Updated line
                 />

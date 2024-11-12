@@ -126,28 +126,6 @@ body {
 /* New Inverted Triangle Class */
 
 
-  .bevel-inverted {
-    position: absolute;
-    bottom: 0;
-    left: -30px;
-    display: inline-block;
-    height: 22px;
-    width: 22px;
-    transform: translateX(100%);
-    overflow: hidden;
-  }
-  
-  .bevel-inverted:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    box-shadow: 0 0 0 100px #f0f0f0;
-    border-radius: 0 0 0 100%;
-  }
-
 
 
 
@@ -551,4 +529,13 @@ body {
   width: 100%;
   box-shadow: 0 0 0 100px #f5f5f5;
   border-radius: 0 0 0 100%;
+}
+
+
+
+
+@media (max-width: 640px) {
+  .bevel6 {
+    display: none; /* Show on screens 640px and larger */
+  }
 }

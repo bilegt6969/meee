@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useState, useRef, ReactNode } from "react";
 import CountUp from "react-countup";
+import Cookies from 'js-cookie'; // Import js-cookie
 
 interface Statistic {
   [x: string]: ReactNode;
@@ -56,7 +57,7 @@ const CounterSection: React.FC<CounterSectionProps> = ({ statistics }) => {
   const shouldShowPlus = (value: string) => {
     return /[^0-9.]/.test(value);
   };
-
+  const currentLanguage = Cookies.get("language") || "MNG"; // Default to "MNG"
   return (
     <div
       ref={ref}
@@ -67,7 +68,7 @@ const CounterSection: React.FC<CounterSectionProps> = ({ statistics }) => {
 
         <div className="flex flex-col items-center space-y-2 lg:space-y-4">
           <p className="text-lg md:text-xl lg:text-2xl text-center max-w-[10rem]">
-            {statistics.Statistic_1.title}
+          {currentLanguage === "MNG" ? "Дууссан Төслүүд" : "Completed Projects"}
           </p>
           <div className="flex items-center">
             <span className="font-bold text-3xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-7xl">
@@ -105,7 +106,7 @@ const CounterSection: React.FC<CounterSectionProps> = ({ statistics }) => {
 
         <div className="flex flex-col items-center space-y-2 lg:space-y-4">
           <p className="text-lg md:text-xl lg:text-2xl text-center max-w-[10rem]">
-            {statistics.Statistic_2.title}
+          {currentLanguage === "MNG" ? "LTI Ажлын Цаг" : "LTI Free Manhours"}
           </p>
           <span className="font-bold text-3xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-7xl">
             {countState.isCounting && (
@@ -143,11 +144,11 @@ const CounterSection: React.FC<CounterSectionProps> = ({ statistics }) => {
 
         <div className="flex flex-col items-center space-y-0 md:space-y-2 lg:space-y-4">
         <p className="text-lg md:text-xl lg:text-2xl text-center max-w-[10rem]">
-            {statistics.Statistic_3.title}
+        {currentLanguage === "MNG" ? "Ажилласан нийт хүн цаг" : "Total manhours employed"}
         </p>
         <div className="flex items-center">
-          <span className="font-bold font-sans text-3xl sm:text-5xl md:text-5xl lg:text-5xl xl:text-6xl">
-            {countState.isCounting && (
+        <span className="font-bold text-3xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-7xl">
+        {countState.isCounting && (
               <CountUp
                 start={0}
                 end={cleanNumber(statistics.Statistic_3.summary)}

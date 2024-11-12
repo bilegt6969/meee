@@ -30,6 +30,7 @@ const TimelineScroll = () => {
 
   const scrollPercentage = maxScrollX > 0 ? scrollXValue / maxScrollX : 0;
 
+
   return <TimelinePresentation 
     timelineRef={timelineRef}
     scrollPercentage={scrollPercentage}

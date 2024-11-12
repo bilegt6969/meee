@@ -2,10 +2,14 @@ import React from 'react';
 import Image from 'next/image';
 import { CalendarIcon } from "@heroicons/react/24/solid";
 import { getKbArticlesByCode } from "@/lib/kb";
+import { cookies } from "next/headers";
+
 
 // Separate data fetching component
 async function getNewsData(slug: string) {
-  const articles = await getKbArticlesByCode('News');
+  const cookieStore = cookies();
+  const currentLanguage = (await cookieStore).get("language")?.value ?? "MNG";
+  const articles = await getKbArticlesByCode(currentLanguage==="MNG" ? "News-MNG" : "News");
   return articles.article.find((item) => item._id === slug);
 }
 
@@ -30,7 +34,8 @@ export default async function NewsContent({ slug }: { slug: string }) {
               ? `https://khas-dayan.api.erxes.io/api/read-file?key=${IndividualNews.image.url}` 
               : '/placeholder.jpg'
             }
-            alt={IndividualNews.title}
+            alt={IndividualNews.title || 'News Image'}
+            loading="lazy"
             fill
             className="object-cover rounded-lg"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 50vw"

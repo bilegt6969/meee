@@ -4,9 +4,8 @@ import VideoPlayer from './Videocard'
 import Photocard from './Photocard'
 
 export default async function Carpage() {
-    const {article} = await getKbArticlesByCode("Cola");
+    const {article} = await getKbArticlesByCode("HomePage");
     const HomeContent = article.filter((item) => item.code === "HomeContent");
-    console.log(HomeContent[0].image.url);
   return (
     <div className="h-screen w-screen relative">
         {

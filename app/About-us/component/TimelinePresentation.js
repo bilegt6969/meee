@@ -1,8 +1,13 @@
 import React from 'react';
 import Image from "next/legacy/image";
 import { getKbArticlesByCode } from "@/lib/kb";
+import { cookies } from 'next/headers';
+
 
 const TimelinePresentation = async ({ timelineRef, scrollPercentage }) => {
+  const cookieStore = cookies();
+  const currentLanguage = (await cookieStore).get('language')?.value ?? 'MNG';
+
   const {article} = await getKbArticlesByCode("About-us/projects");
   
   // Sort articles by year in ascending order
@@ -25,15 +30,18 @@ const TimelinePresentation = async ({ timelineRef, scrollPercentage }) => {
             const currentLineStart = index * lineWidth;
             const lineColorWidth = Math.max(0, Math.min(lineScroll - currentLineStart, lineWidth));
 
+            // Debugging logs
+
             return (
               <div key={index} className="relative flex flex-col items-center min-w-[220px] md:min-w-[250px]">
                 <div className={`relative ${index % 2 === 0 ? 'mb-[0rem]' : 'mt-[28rem]'} w-[220px] md:w-[250px] text-left`}>
                   <span className="text-center text-xl md:text-2xl font-extrabold mb-3">{Year}</span>
-                  <h1 className="text-lg md:text-xl font-extrabold mb-3 mt-2">{event.summary}</h1>
-                  <div className="text-sm md:text-md" dangerouslySetInnerHTML={{ __html: event.content }} />
+                  <h1 className="text-lg md:text-xl font-extrabold mb-3 mt-2">{event.code}</h1>
+                  <div className="text-sm md:text-md" dangerouslySetInnerHTML={{ __html: currentLanguage === "MNG" ? event.summary : event.content }} />
                   <Image 
                     src={ImageUrl} 
                     alt={event._id} 
+                    loading="lazy"
                     height={180}
                     width={270}
                     className="w-full h-[120px] md:h-[150px] object-cover rounded-lg mb-3 mt-[1rem]"

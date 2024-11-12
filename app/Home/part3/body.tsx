@@ -1,6 +1,4 @@
-import Image from "next/legacy/image";
 import { ChevronRight } from "lucide-react";
-import Title from "./title";
 import "./style.css";
 import { getKbArticlesByCode } from "@/lib/kb";
 export const revalidate = 1
@@ -14,9 +12,7 @@ async function TabComponent({ isService }: { isService: boolean }){
     return (
       <div className="relative flex justify-center items-center bg-[#f0f0f0] mt-16 px-1 sm:px-6 md:px-12 xl:px-24">
         <div className="w-full justify-between">
-          {/* Tab Header */}
-          <Title />
-  
+          {/* Tab Header */}  
           <div className="bg-white rounded-2xl rounded-tl-none">
             <div
               className={`flex flex-col lg:flex-row rounded-2xl w-full ${

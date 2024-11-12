@@ -2,8 +2,12 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import CountUp from 'react-countup';
+import Cookies from 'js-cookie'; // Import js-cookie
 
 function HomeCardCount({ content }) {
+  // Get the current language from cookies
+  const currentLanguage = Cookies.get("language") || "ENG"; // Default to "MNG"
+
   const [countState, setCountState] = useState({
     isCounting: false,
     isCompleted: false,
@@ -35,8 +39,6 @@ function HomeCardCount({ content }) {
     };
   }, []);
 
-
-
   return (
     <div
       ref={ref}
@@ -44,7 +46,7 @@ function HomeCardCount({ content }) {
     >
       <div className="flex flex-col items-center space-y-0 md:space-y-2 lg:space-y-4">
         <p className="text-lg md:text-xl lg:text-2xl text-center">
-          Completed Projects
+          {currentLanguage === "MNG" ? "Дууссан Төслүүд" : "Completed Projects"}
         </p>
         <span className="font-bold font-sans text-3xl sm:text-5xl md:text-5xl lg:text-5xl xl:text-6xl">
           {countState.isCounting && (
@@ -55,10 +57,11 @@ function HomeCardCount({ content }) {
 
       <div className="flex flex-col items-center space-y-0 md:space-y-2 lg:space-y-4">
         <p className="text-lg md:text-xl lg:text-2xl text-center">
-          LTI Free Manhours
+        {currentLanguage === "MNG" ? "LTI Ажлын Цаг" : "LTI Free Manhours"}
+          
         </p>
         <span className="font-bold font-sans text-3xl sm:text-5xl md:text-5xl lg:text-5xl xl:text-6xl">
-          {countState.isCounting && (
+        {countState.isCounting && (
             <CountUp start={0} end={content[1]} duration={2} separator="," />
           )}
         </span>
@@ -66,7 +69,7 @@ function HomeCardCount({ content }) {
 
       <div className="flex flex-col items-center space-y-0 md:space-y-2 lg:space-y-4">
         <p className="text-lg md:text-xl lg:text-2xl text-center">
-          Total manhours employed
+        {currentLanguage === "MNG" ? "Ажилласан нийт хүн цаг" : "Total manhours employed"}
         </p>
         <div className="flex items-center">
           <span className="font-bold font-sans text-3xl sm:text-5xl md:text-5xl lg:text-5xl xl:text-6xl">

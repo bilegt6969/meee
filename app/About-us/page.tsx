@@ -5,25 +5,26 @@ import Timeline from "./component/TimelinePresentation";
 import { ChevronRightIcon, CircleCheck } from "lucide-react";
 import { getKbArticlesByCode } from "@/lib/kb";
 import { getKbArticlesByCode2 } from "@/lib/kb2";
+import { cookies } from 'next/headers';
 
 // Add interface for the form item
 interface FormItem {
   brandId: string;
-  // Add other properties if they exist
 }
 
 async function Page() {
-  const teamsdata = [
-    { img: "/person1.png", name: "TUMEN-AYUSH Jamiyansuren", position: "Only Shareholder" },
-    { img: "/person2.png", name: "GANKHULUG Enkhbold", position: "Executive Director" },
-    { img: "/person3.png", name: "ZULBAYAR Bold", position: "Advisor" },
-  ];
-  const{article} =await getKbArticlesByCode("about_us")
-  const{article2} =await getKbArticlesByCode2("about-us/owners")
-  const homeContent = article.filter((item) => item.code === "about-us_Heading")[0];
-  const AboutPage = article.filter((item) => item.code === "Part_2")[0];
-  
+  const cookieStore = cookies();
+  const currentLanguage = (await cookieStore).get('language')?.value ?? 'MNG';
 
+  const { article } = await getKbArticlesByCode("about_us");
+  const { article2 } = await getKbArticlesByCode2("about-us/owners");
+
+  const homeContent = article.find((item) => item.code === (currentLanguage === "MNG" ? "about-us_Heading-MNG" : "about-us_Heading"));
+  const AboutPage = article.find((item) => item.code === (currentLanguage === "MNG" ? "Part_2-MNG" : "Part_2"));
+
+  const ImageURl = homeContent?.image?.url
+    ? `https://khas-dayan.api.erxes.io/api/read-file?key=${homeContent.image.url}`
+    : "/1.png";
 
   return (
     <div>
@@ -31,13 +32,14 @@ async function Page() {
       <section className="relative h-screen w-full">
         <Image
           className="absolute -top-[4rem] left-0 w-full h-full object-cover brightness-50"
+          loading="lazy"
           height={900}
           width={1600}
-          src="/bg.jpg"
+          src={ImageURl}
           alt="Background"
         />
 
-<div className="absolute top-1/3 left-5 md:left-[10%] text-left">
+        <div className="absolute top-1/3 left-5 md:left-[10%] text-left">
           <div className="text-6xl md:text-6xl lg:text-8xl font-extrabold mb-4 tracking-tight uppercase text-white" dangerouslySetInnerHTML={{ __html: homeContent?.summary || '' }} />
           <div className="font-light max-w-[85%] md:max-w-[70%] lg:max-w-[50%] text-sm md:text-lg lg:text-xl text-white leading-relaxed" dangerouslySetInnerHTML={{ __html: homeContent?.content || '' }} />
 
@@ -57,7 +59,6 @@ async function Page() {
             ))}
           </ul>
         </div>
-
       </section>
 
       {/* About Section */}
@@ -78,7 +79,7 @@ async function Page() {
       {/* Company Ownership Section */}
       <section className="mt-20 mb-20">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-8 tracking-tight text-blue-800 text-center uppercase">
-          Company Ownership
+          {currentLanguage === "MNG" ? "Компанийн эзэмшил" : "Company Ownership"}
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-6 mx:px-8 sm:px-12 md:px-12 xl:px-24">
           {article2.map((item, index) => {
@@ -93,9 +94,11 @@ async function Page() {
                     alt={item._id}
                   />
                 </div>
-                <div className=" py-4">
-                  <p className="text-gray-500 text-[16px] font-thin">{item.summary}</p>
-                  <h1 className="text-[20px] text-black font-thin">{item.title}</h1>
+                <div className="py-4">
+                  <p className="text-gray-500 text-[16px] font-thin">
+                    {currentLanguage === "MNG" && item.forms.length > 0 ? item.forms[1].brandId : item.summary}
+                  </p>
+                  <h1 className="text-[20px] text-black font-thin">{item.forms.length > 0 ? item.forms[0].brandId : item.title}</h1>
                 </div>
               </div>
             );

@@ -13,6 +13,11 @@ module.exports = {
 		
 		'Esm': '360px',
 
+		'qsm': '370px',
+
+
+		'Osm': '438px',
+
 		'sm': '640px',
 		// => @media (min-width: 640px) { ... }
   

@@ -54,6 +54,7 @@ const CustomCarousel = () => {
               slides.map((slide, index) => (
                 <Image
                   key={index}
+                  loading="lazy"
                   src={slide.img}
                   height={100}
                   width={100}
@@ -100,6 +101,7 @@ const CustomCarousel = () => {
                 <div className="p-6 w-full md:w-3/5">
                   <Image
                     key={index}
+                    loading="lazy"
                     src={slide.img}
                     height={100}
                     width={100}

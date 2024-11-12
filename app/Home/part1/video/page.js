@@ -7,15 +7,15 @@ import { getClient } from "@/lib/ssClient";
 import { queries } from "@/app/graphql/kb";
 import Link from "next/link";
 import Carpage from './carpage'
+import { cookies } from 'next/headers';
 
 
 export default async function VideoPage() {
 
-  
-
-  const { article } = await getKbArticlesByCode("Cola");
-  const Element = article.filter((item) => item.code === "0623");
-  const HomeElement = article.filter((item) => item.code === "HomeContent");
+  const cookieStore = cookies();
+  const currentLanguage = (await cookieStore).get('language')?.value ?? 'MNG';
+  const { article } = await getKbArticlesByCode("HomePage");
+  const Element = article.filter((item) => item.code === (currentLanguage === 'MNG' ? "0623-MNG" : "0623"));
 
   return (
     <div className="flex items-center justify-center border-white md:border-r-8 mt-[-4rem] bg-[#f0f0f0]">
@@ -33,18 +33,17 @@ export default async function VideoPage() {
             {Element[0].title}
           </h1>
           <div
-            className="font-thin mb-6"
+            className="font-thin mb-6 text-white"
             dangerouslySetInnerHTML={{ __html: Element[0].content }}
-
           />
 
           <div className="flex items-center w-full">
             <Link href="/contact-us">
             <Button
-              className="text-blue-500 px-8 py-4 text-lg items-center justify-center"
+              className="text-blue-800 px-8 py-4 text-lg font-medium items-center justify-center"
               variant="outline"
             >
-              Write us
+              {currentLanguage === "MNG" ? "Бидэнд Бичэх" : "Write Us"}
               <ChevronRight className="h-6 w-6 text-blue-600" />
             </Button>
             </Link>

@@ -4,42 +4,34 @@ import Link from "next/link";
 import { getKbArticleDetail, getKbArticlesByCode } from "@/lib/kb";
 import { getKbArticlesByCode2 } from "@/lib/kb2";
 import { getKbArticlesByCode3 } from "@/lib/kb3";
+import { cookies } from 'next/headers';
 
 // Update the interface definition
 interface IArticle2 {
   code?: string; // Make code optional
   content: string;
-  // Add other properties that might be present in the actual data
 }
 
-// Update or add this interface
 interface IArticle3 {
   code?: React.ReactNode;
   content: string;
-  // Add other properties if needed
 }
 
-// Sample data for sections
+export default async function Page() {
+  const cookieStore = cookies();
+  const currentLanguage = (await cookieStore).get('language')?.value ?? 'MNG';
 
-const {article} = await getKbArticlesByCode("CAREERS/HOME");
-const {article2}: {article2: IArticle2[]} = await getKbArticlesByCode2("Careers/body");
-const {article3}: {article3: IArticle3[]} = await getKbArticlesByCode3("Careers");
+  const { article } = await getKbArticlesByCode("CAREERS/HOME");
+  const { article2 }: { article2: IArticle2[] } = await getKbArticlesByCode2(currentLanguage === "MNG" ? "Careers/body-MNG" : "Careers/body");
+  const { article3 }: { article3: IArticle3[] } = await getKbArticlesByCode3(currentLanguage === "MNG" ? "Careers-MNG" : "Careers");
 
+  const Element = article.filter((item) => (item as any).code === (currentLanguage === "MNG" ? "Careers-MNG" : "Careers"));
 
+  // Add null check for Element
+  const ImageUrl = Element.length > 0 && Element[0]?.image?.url 
+    ? `https://khas-dayan.api.erxes.io/api/read-file?key=${Element[0].image.url}`
+    : '/fallback-image.jpg'; // Replace with your fallback image path
 
-
-const Element = article.filter((item) => (item as any).code === "Careers");
-
-// Add null check and provide fallback image URL
-const ImageUrl = Element[0]?.image?.url 
-  ? `https://khas-dayan.api.erxes.io/api/read-file?key=${Element[0].image.url}`
-  : '/fallback-image.jpg'; // Replace with your fallback image path
-
-
-
-
-
-export default function Page() {
   return (
     <div>
       {/* Hero Section */}
@@ -48,13 +40,13 @@ export default function Page() {
           width={1920}
           height={1080}
           src={ImageUrl}
+          loading="lazy"
           alt="Background image"
           className="relative h-screen -top-16 w-full object-cover brightness-50"
         />
         <div className="absolute top-1/3 left-5 md:left-[10%] text-left">
-          <div className="text-4xl md:text-6xl lg:text-8xl font-extrabold mb-4 text-white uppercase" dangerouslySetInnerHTML={{ __html: Element[0].title ?? '' }} />
-          <div className="font-thin max-w-[85%] md:max-w-[70%] lg:max-w-[40%] text-base md:text-lg text-white leading-relaxed" dangerouslySetInnerHTML={{ __html: Element[0].content ?? '' }} />
-            
+          <div className="text-4xl md:text-6xl lg:text-8xl font-extrabold mb-4 text-white uppercase" dangerouslySetInnerHTML={{ __html: Element.length > 0 ? Element[0].title : '' }} />
+          <div className="font-thin max-w-[85%] md:max-w-[70%] lg:max-w-[40%] text-base md:text-lg text-white leading-relaxed" dangerouslySetInnerHTML={{ __html: Element.length > 0 ? Element[0].content : '' }} />
         </div>
       </section>
 
@@ -62,7 +54,7 @@ export default function Page() {
       <section className="bg-[#f0f0f0] mt-[-4rem] text-black py-16 md:py-32 px-4 space-y-16">
         <div className="mx-auto max-w-7xl space-y-16">
           {article3 && article2 && article3.map((item3, index) => {
-            const item2 = article2.find(i => i.code === item3.code + '_body');
+            const item2 = article2.find(i => (currentLanguage === "MNG" ? (i.code === item3.code?.toString().replace("-mng", "") + '_body-MNG') : (i.code === item3.code + '_body') ));
             if (item2) {
               return (
                 <div

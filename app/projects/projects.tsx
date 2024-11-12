@@ -3,6 +3,10 @@ import { getKbArticlesByCode } from "@/lib/kb";
 import Image from "next/image";
 import Link from "next/link";
 import { revalidatePath } from 'next/cache';
+import { cookies } from 'next/headers';
+
+
+
 
 // Store code in memory with a default value
 let currentCode = 'id1_projects';
@@ -14,12 +18,30 @@ async function updateCode(formData: FormData) {
   currentCode = newCode;
   // Only revalidate the content area
   revalidatePath('/projects', 'layout');
+  
+}
+
+// New Translation Component
+async function Translation({ language }: { language: string }) {
+  const cookieStore = cookies();
+const currentLanguage = (await cookieStore).get('language')?.value ?? 'MNG';
+  
+  return (
+    <div className="bg-blue-800 text-white font-bold text-center rounded-t-xl">
+      <div className="p-4">
+        <h2 className="text-2xl">{language === "MNG" ? "Бүх төслүүд" : "All Projects"}</h2>
+      </div>
+    </div>
+  );
 }
 
 // Separate the content component for faster updates
 async function ProjectContent({ currentCode }: { currentCode: string }) {
-  const { article } = await getKbArticlesByCode(currentCode);
-  
+  const cookieStore = cookies();
+const currentLanguage = (await cookieStore).get('language')?.value ?? 'MNG';
+
+  const { article } = await getKbArticlesByCode(currentLanguage === "MNG" ? currentCode + "-MNG" : currentCode);
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 border border-gray-200">
       {article.map((item, index) => {
@@ -28,23 +50,24 @@ async function ProjectContent({ currentCode }: { currentCode: string }) {
           <div key={index} className="relative group overflow-hidden border-r border-b border-gray-200 last:border-r-0">
             <div className="relative group overflow-hidden">
               <Link
-                key={item._id} 
+                key={item._id}
                 href={{
                   pathname: `/projects/${item._id}`,
-                  query: { 
+                  query: {
                     catCode: "id1_projects",
                     title: item.title,
                     summary: item.summary,
                     content: item.content,
                     imageUrl: imageUrl,
-                    date: item.forms?.[0]?.formId||"Nan"
+                    date: item.forms?.[0]?.formId || "Nan"
                   }
                 }}
               >
                 <div className="relative w-full h-0 pb-[100%] overflow-hidden">
                   <Image
                     src={imageUrl}
-                    alt={item._id}
+                    loading="lazy"
+                    alt={item._id || 'Project Image'}
                     className="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110 p-0 md:p-4"
                     width={400}
                     height={400}
@@ -75,7 +98,7 @@ async function ProjectContent({ currentCode }: { currentCode: string }) {
                 <div className="md:block hidden absolute bottom-4 left-5 w-full p-4 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out">
                   <p className="text-lg font-thin">{item.summary}</p>
                   <p className="text-xl font-medium uppercase">{item.title}</p>
-                  <p className="text-sm font-light">{item.forms?.[0]?.formId||"Nan"}</p>
+                  <p className="text-sm font-light">{item.forms?.[0]?.formId || "Nan"}</p>
                 </div>
               </Link>
             </div>
@@ -87,15 +110,13 @@ async function ProjectContent({ currentCode }: { currentCode: string }) {
 }
 
 async function Projects() {
+  const cookieStore = cookies();
+const currentLanguage = (await cookieStore).get('language')?.value ?? 'MNG';
   return (
-    <div className="p-4 md:p-8 px-6 mx:px-8 sm:px-12 md:px-12 xl:px-24 pt-12 md:pt-24 bg-[#f0f0f0] rounded-tr-3xl mx-3 divide-y">
+    <div className="p-4 md:p-8 px-6 mx:px-8 sm:px-12 md:px-12 pt-12 md:pt-24 bg-[#f0f0f0] rounded-tr-3xl mx-3 divide-y">
       <div>
         {/* Title Section */}
-        <div className="bg-blue-800 text-white font-bold text-center rounded-t-xl">
-          <div className="p-4">
-            <h2 className="text-2xl">All Projects</h2>
-          </div>
-        </div>
+        <Translation language={currentLanguage} />
 
         {/* Desktop Layout (MD and above) */}
         <div className="hidden md:block">
@@ -105,12 +126,12 @@ async function Projects() {
               <button 
                 type="submit" 
                 className={`col-span-1 w-full p-4 transition-colors duration-300 
-                  ${currentCode === 'id1_projects' 
+                  ${currentCode === (currentLanguage === "MNG" ? "id1_projects-MNG" : "id1_projects")
                     ? 'bg-gray-300 text-white' 
                     : 'hover:bg-gray-200'
                   }`}
               >
-                Heating Plant
+                {currentLanguage === "MNG" ? "Heating Plant MNG" : "Heating Plant"}
               </button>
             </form>
             <form action={updateCode}>
@@ -118,12 +139,13 @@ async function Projects() {
               <button 
                 type="submit" 
                 className={`col-span-1 w-full p-4 transition-colors duration-300 
-                  ${currentCode === 'id2_projects' 
+                  ${currentCode === (currentLanguage === "MNG" ? "id2_projects-MNG" : "id3_projects")
                     ? 'bg-gray-300 text-white' 
                     : 'hover:bg-gray-200'
                   }`}
               >
                 Construction
+                {currentLanguage === "MNG" ? "" : ""}
               </button>
             </form>
           </div>
@@ -134,12 +156,12 @@ async function Projects() {
               <button 
                 type="submit" 
                 className={`w-full p-4 transition-colors duration-300 
-                  ${currentCode === 'id3_projects' 
+                  ${currentCode === (currentLanguage === "MNG" ? "id3_projects-MNG" : "id3_projects")
                     ? 'bg-gray-300 text-white' 
                     : 'hover:bg-gray-200'
                   }`}
               >
-                Engineering and Technical Service
+                {currentLanguage === "MNG" ? "MNG                 Engineering and Technical Service" : "                Engineering and Technical Service"}
               </button>
             </form>
             <form action={updateCode}>
@@ -147,12 +169,13 @@ async function Projects() {
               <button 
                 type="submit" 
                 className={`w-full p-4 transition-colors duration-300 
-                  ${currentCode === 'id4_projects' 
+                  ${currentCode === (currentLanguage === "MNG" ? "id4projects-MNG" : "id4_projects")
                     ? 'bg-gray-300 text-white' 
                     : 'hover:bg-gray-200'
                   }`}
               >
-                Mine Contracting
+                
+                {currentLanguage === "MNG" ? "mng Mine Contracting" : "Mine Contracting"}
               </button>
             </form>
             <form action={updateCode}>
@@ -160,22 +183,23 @@ async function Projects() {
               <button 
                 type="submit" 
                 className={`w-full p-4 transition-colors duration-300 
-                  ${currentCode === 'id5_projects' 
+                  ${currentCode === (currentLanguage === "MNG" ? "id5_projects-MNG" : "id5_projects")
                     ? 'bg-gray-300 text-white' 
                     : 'hover:bg-gray-200'
                   }`}
               >
-                Construction
+                
+                {currentLanguage === "MNG" ? "MNG Construction" : "Construction"}
               </button>
             </form>
           </div>
 
           <div className="grid grid-cols-4 divide-x bg-white divide-gray-300 text-center font-medium border-gray-300 border">
             {[
-              { code: 'id6_projects', label: 'Engineering and Technical Service' },
-              { code: 'id7_projects', label: 'Mine Contracting' },
-              { code: 'id8_projects', label: 'Construction' },
-              { code: 'id9_projects', label: 'Construction' }
+              { code: (currentLanguage==="MNG" ? "id6_projects-MNG" : "id6_projects"), label: 'Engineering and Technical Service' },
+              { code: (currentLanguage==="MNG" ? "id7_projects-MNG" : "id7_projects"), label: 'Mine Contracting' },
+              { code: (currentLanguage==="MNG" ? "id8_projects-MNG" : "id8_projects"), label: 'Construction' },
+              { code: (currentLanguage==="MNG" ? "id9_projects-MNG" : "id9_projects"), label: 'Construction' }
             ].map((item) => (
               <form key={item.code} action={updateCode}>
                 <input type="hidden" name="code" value={item.code} />
@@ -208,7 +232,8 @@ async function Projects() {
                     : 'bg-white hover:bg-gray-50'
                   }`}
               >
-                <span className="text-base font-semibold text-center line-clamp-2">Heating Plant</span>
+                <span className="text-base font-semibold text-center line-clamp-2"></span>
+                {currentLanguage === "MNG" ? "MNG Heating Plant" : "Heating Plant"}
               </button>
             </form>
             <form action={updateCode}>
@@ -221,7 +246,8 @@ async function Projects() {
                     : 'bg-white hover:bg-gray-50'
                   }`}
               >
-                <span className="text-base font-semibold text-center line-clamp-2">Construction</span>
+                <span className="text-base font-semibold text-center line-clamp-2"></span>
+                {currentLanguage === "MNG" ? "MNG Construction" : "Construction"}
               </button>
             </form>
           </div>
